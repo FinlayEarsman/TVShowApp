@@ -1,0 +1,64 @@
+<! DOCTYPE html>
+
+
+<html>
+	<head>
+		<title>
+			TVShowApp -
+			{% block title_block %}
+				
+			{% endblock %}
+		</title>
+	</head>
+	
+	<body>
+	<!-- this should be the left sidebar -->
+	<div>
+		TV SHOW APP
+		<ul>
+		<li><a href="{% url 'TVShowApp:index' %}">Home Page</a></li>
+		{% if user.is_authenticated %}
+			<!-- Show these links when the user is logged in -->
+			<li><a href="{% url 'TVShowApp:user_profile' %}">Your Profile</a></li>
+			<li><a href="{% url 'TVShowApp:request_show' %}">Request TV Show</a></li>
+		{% endif %}
+			
+		</ul>
+
+		</div>
+		
+		<!-- this should be put at the top far right -->
+		<div>
+			<ul>
+			{% if user.is_authenticated %}
+				<!-- Show these links when the user is logged in -->
+				<li><a href="{% url 'TVShowApp:logout' %}">Logout</a></li>
+				
+			{% else %}
+				<!-- Show these links when the user is NOT logged in -->
+				<li><a href="{% url 'TVShowApp:sign_up' %}">Sign Up</a></li>
+				<li><a href="{% url 'TVShowApp:login' %}">Login</a></li>
+			{% endif %}
+			
+			
+			</ul>
+
+		</div>
+		
+		<!-- this contains the search box or page title. consider having default as search and then overwrite -->
+		<div>
+			{% block header_block %}
+			{% endblock %}
+		</div>
+		
+		
+		<div>
+			{% block body_block %}
+			{% endblock %}
+		</div>
+		
+		
+		
+		
+	</body>
+</html>

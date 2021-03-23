@@ -6,41 +6,46 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 
-@login_required
+#@login_required
 def index(request):
-    return HttpResponse("TVShowApp Homepage")
+    show_list = Show.objects.order_by('-title')[:5]
+    context_dict = {}
+    context_dict['shows'] = show_list
+    return render(request, 'TVShowApp/index.html', context=context_dict)
 
 
 def tv_show(request):
-    return HttpResponse("TV show display page")
+    #needs the slug/name of the show to be passed to template
+    return render(request, 'TVShowApp/tv_show.html')
 
 
 def genres(request):
-    return HttpResponse("genres page")
+    return render(request, 'TVShowApp/genre.html')
 
 
 def new_rating(request):
-    return HttpResponse("add rating to show page")
+    #this isn't currently working because there isnt any shows
+    return render(request, 'TVShowApp/add_rating.html')
 
 
 def request_show(request):
-    return HttpResponse("Request TV show display page")
+    return render(request, 'TVShowApp/request_show.html')
 
 
 def login(request):
-    return HttpResponse("login page")
+    return render(request, 'TVShowApp/login.html')
 
 
 def user_profile(request):
-    return HttpResponse("profile page")
+    return render(request, 'TVShowApp/user_profile.html')
 
 
 def sign_up(request):
-    return HttpResponse("sign up page")
+    return render(request, 'TVShowApp/sign_up.html')
 
 
 def search_results(request):
-    return HttpResponse("search results page")
+    return render(request, 'TVShowApp/search_results.html')
 
 
 def review_requests(request):

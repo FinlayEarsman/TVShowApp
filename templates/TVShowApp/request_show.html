@@ -1,0 +1,26 @@
+{% extends 'TVShowApp/base.html' %}
+
+{% block title_block %}
+	Request Show
+{% endblock %}
+
+{% block header_block %}
+Request a Show
+{% endblock %}
+
+
+{% block body_block %}
+<form id="show_form" method="post" action="{% url 'TVShowApp:request_show' %}">
+		{% csrf_token %}
+		Name of show: <input type="text" name="show_name" value="" size="25" />
+		<br />
+		Year released: <input type="text" name="year_released" value="" size="25" />
+		<br />
+		Genre(s): <input type="text" name="genre" value="" size="25" />
+		<br />
+		Poster: <input type="text" name="poster" value="" size="25" />
+		<br />
+		<input type="submit" value="Submit Request" />
+	</form>
+
+{% endblock %}

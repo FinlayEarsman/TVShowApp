@@ -1,0 +1,21 @@
+{% extends 'TVShowApp/base.html' %}
+
+{% block title_block %}
+	Log In
+{% endblock %}
+
+{% block header_block %}
+Log In
+{% endblock %}
+
+
+{% block body_block %}
+<form id="login_form" method="post" action="{% url 'TVShowApp:login' %}">
+		{% csrf_token %}
+		Username: <input type="text" name="username" value="" size="25" />
+		<br />
+		Password: <input type="password" name="password" value="" size="25" />
+		<br />
+		<input type="submit" value="Log In" />
+	</form>
+{% endblock %}
