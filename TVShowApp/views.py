@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, Http404
 from django.http import HttpResponse
 from .models import Genre, Show, Belonging, Review
-from .forms import GenreForm
+from .forms import GenreForm, UserForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
@@ -63,7 +63,23 @@ def user_profile(request, username):
 
 
 def sign_up(request):
-    return render(request, 'TVShowApp/sign_up.html')
+    registered = False
+
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        
+        if user_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            registered = True
+        else:
+            print(user_form.errors)
+    else:
+        user_form = UserForm()
+
+    return render(request, 'TVShowApp/sign_up.html', context = {'user_form':user_form,
+                                                                'registered':registered})
 
 
 def search_results(request):

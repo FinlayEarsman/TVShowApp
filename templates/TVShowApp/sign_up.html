@@ -5,10 +5,18 @@
 {% endblock %}
 
 {% block header_block %}
-Sign Up
 {% endblock %}
 
 
 {% block body_block %}
-User sign up form
+<h1>Sign Up</h1>
+{% if registered %}
+Thank you for signing up !
+{% else %}
+<form id="user_form" method="post" action="{% url 'TVShowApp:sign_up' %}" enctype="multipart/form-data">
+{% csrf_token %}
+{{ user_form.as_p }}
+<input type="submit" name="submit" value="Sign Up" />
+</form>
+{% endif %} 
 {% endblock %}
