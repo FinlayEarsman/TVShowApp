@@ -10,7 +10,15 @@ Log In
 
 
 {% block body_block %}
-<form id="login_form" method="post" action="{% url 'TVShowApp:login' %}">
+{#render form messages#}
+    {% if messages %}
+  	{% for message in messages %}
+  		<p>{{ message }}</p>
+  	{% endfor %}
+  {% endif %}
+
+
+<form id="login_form" method="post" action="">
 		{% csrf_token %}
 		Username: <input type="text" name="username" value="" size="25" />
 		<br />

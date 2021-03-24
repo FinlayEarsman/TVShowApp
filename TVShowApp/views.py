@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, reverse, Http404
 from django.http import HttpResponse
 from .models import Genre, Show, Belonging, Review
 from .forms import GenreForm
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
 
 
 #@login_required
@@ -33,7 +34,19 @@ def request_show(request):
     return render(request, 'TVShowApp/request_show.html')
 
 
-def login(request):
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            # Redirect to a success page.
+            return redirect(reverse("TVShowApp:index"))
+        else:
+            # Return an 'invalid login' error message.
+            messages.add_message(request, messages.INFO, 'invalid login, please check your inputs!')
+
     return render(request, 'TVShowApp/login.html')
 
 
@@ -63,7 +76,7 @@ def user_logout(request):
 @login_required
 def add_genres(request):
     # # if user is login and admin
-    if request.user.id == 1:
+    if request.user.is_superuser:
         # A HTTP POST?
         if request.method == "POST":
             form = GenreForm(request.POST)
@@ -83,7 +96,7 @@ def add_genres(request):
             form = GenreForm()
             return HttpResponse(form)
     else:
-        return redirect(reverse("TVShowApp:login"))
+        return redirect(reverse("TVShowApp:index"))
 
 
 @login_required
