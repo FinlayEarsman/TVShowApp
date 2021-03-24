@@ -10,10 +10,19 @@ Search box
 
 
 {% block body_block %}
-{{ user.username }}'s Profile 
-</br>
+<h1>{{ usr_prof.get_username }}'s Profile </h1></br>
 
-{{ user.username }}'s Ratings
+<b>{{ usr_prof.get_username }}'s Ratings </b></br>
+{% if reviews %}
+<ul>
+
+	{% for review in reviews %}
+		<li><u>{{ review.show }}</u> : {{ review.comment }} </br> Rating: {{ review.rating }}</li>
+	{% endfor %}
+</ul>
+{% else %}
+	This user has not reviewed any TV Shows yet.</br>
+{% endif %}
 
 
 {% endblock %}

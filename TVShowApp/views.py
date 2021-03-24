@@ -6,9 +6,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+from django.contrib.auth.models import User
 
-
-#@login_required
 def index(request):
     show_list = Show.objects.order_by('-avg_rating')[:5]
     context_dict = {}
@@ -50,8 +49,17 @@ def login_view(request):
     return render(request, 'TVShowApp/login.html')
 
 
-def user_profile(request):
-    return render(request, 'TVShowApp/user_profile.html')
+def user_profile(request, username):
+    context_dict={}
+    try:
+        user = User.objects.get(username=username)
+        reviews = Review.objects.filter(user=user)
+        context_dict['reviews'] = reviews
+        context_dict['usr_prof'] = user
+    except User.DoesNotExist:
+        context_dict['reviews'] = ""
+        context_dict['reviews'] = ""
+    return render(request, 'TVShowApp/user_profile.html', context=context_dict)
 
 
 def sign_up(request):

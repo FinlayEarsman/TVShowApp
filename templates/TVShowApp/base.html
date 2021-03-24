@@ -19,7 +19,7 @@
 		<li><a href="{% url 'TVShowApp:index' %}">Home Page</a></li>
 		{% if user.is_authenticated %}
 			<!-- Show these links when the user is logged in -->
-			<li><a href="{% url 'TVShowApp:user_profile' %}">Your Profile</a></li>
+			<li><a href="{% url 'TVShowApp:user_profile' user.get_username %}">Your Profile</a></li>
 			<li><a href="{% url 'TVShowApp:request_show' %}">Request TV Show</a></li>
 		{% endif %}
 			
