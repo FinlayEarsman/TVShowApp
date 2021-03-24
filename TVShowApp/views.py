@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, Http404
 from django.http import HttpResponse
 from .models import Genre, Show, Belonging, Review
 from .forms import GenreForm
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
@@ -50,6 +51,11 @@ def search_results(request):
 
 def review_requests(request):
     return HttpResponse("admin show request approval page")
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('TVShowApp:index'))
 
 
 # all operations for genres
