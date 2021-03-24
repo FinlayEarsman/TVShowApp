@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 #@login_required
 def index(request):
-    show_list = Show.objects.order_by('-title')[:5]
+    show_list = Show.objects.order_by('-avg_rating')[:5]
     context_dict = {}
     context_dict['shows'] = show_list
     return render(request, 'TVShowApp/index.html', context=context_dict)

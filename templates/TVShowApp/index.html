@@ -12,9 +12,11 @@ put searchbox here
 {% block body_block %}
 Top 5 rated TV shows
 {% if shows %}
+	<ul>
 	{% for show in shows %}
-		There is a show. Display the shows image.
+		<li>{{ show.title }} : {{ show.avg_rating }}</li>
 	{% endfor %}
+	</ul>
 {% else %}
 There are no shows present
 {% endif %}
