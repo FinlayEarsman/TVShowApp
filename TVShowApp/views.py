@@ -11,8 +11,10 @@ from django.contrib.auth.models import User
 
 def index(request):
     context_dict = {}
+    genre_list = Genre.objects.all()
     show_list = Show.objects.order_by('-avg_rating')[:5]
     context_dict['shows'] = show_list
+    context_dict['genres'] = genre_list
     return render(request, 'TVShowApp/index.html', context=context_dict)
 
 
@@ -24,9 +26,20 @@ def tv_show(request, show_id):
     context_dict['reviews'] = reviews
     return render(request, 'TVShowApp/tv_show.html', context=context_dict)
 
-
-def genres(request):
-    return render(request, 'TVShowApp/genre.html')
+def show_genre(request, genre_name_slug):
+    context_dict = {}
+    try:
+        genre = Genre.objects.get(slug=genre_name_slug)
+        belongings = Belonging.objects.filter(genre=genre)
+        shows_in_genre = []
+        for belonging in belongings:
+            shows_in_genre.append(Show.objects.get(id=belonging.show.id))
+        context_dict['genre'] = genre
+        context_dict['shows'] = shows_in_genre
+    except Genre.DoesNotExist:
+        context_dict['genre'] = ""
+        context_dict['shows'] = ""
+    return render(request, 'TVShowApp/genre.html', context=context_dict)
 
 
 def new_rating(request, show_id):
@@ -43,7 +56,7 @@ def request_show(request):
 def login_view(request):
     if request.method == "POST":
         username = request.POST['username']
-        password = request.POST['password']
+        password = request.POST['password'] 
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)

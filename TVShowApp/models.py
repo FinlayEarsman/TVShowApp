@@ -6,6 +6,11 @@ from django.template.defaultfilters import slugify
 class Genre(models.Model):
     NAME_MAX_LENGTH = 50
     name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(unique=True)
+
+    def save(self,*args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Genre, self).save(*args,**kwargs)
 
     def __str__(self):
         return self.name

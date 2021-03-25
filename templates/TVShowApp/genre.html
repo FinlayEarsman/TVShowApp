@@ -1,18 +1,25 @@
 {% extends 'TVShowApp/base.html' %}
 
 {% block title_block %}
-	Genre Page
+	{{ genre.name }} TV Shows
 {% endblock %}
 
 {% block header_block %}
 Search box?
+<h1>{{ genre.name }}</h1>
 {% endblock %}
 
 
 {% block body_block %}
-GENRE NAME
-List of all (or limited number) shows with this genre. Sorted by rating? Similar to index.
-Needs info passed in.
-Or is this meant to be a list of all the avaliable genres. 
+
+    {% if shows %}
+        <ul>
+        {% for show in shows %}
+            <li>{{ show.title }} ({{ show.avg_rating}})</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        There are no shows in this genre.
+    {% endif%}
 
 {% endblock %}
