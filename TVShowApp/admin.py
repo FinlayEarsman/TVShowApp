@@ -8,7 +8,7 @@ class GenreAdmin(admin.ModelAdmin):
 
 
 # Register your models here.
-admin.site.register(Genre, GenreAdmin)
 admin.site.register(Show)
+admin.site.register(Genre, GenreAdmin)
 admin.site.register(Belonging)
 admin.site.register(Review)

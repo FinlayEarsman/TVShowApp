@@ -1,7 +1,7 @@
 {% extends 'TVShowApp/base.html' %}
 
 {% block title_block %}
-	Show Page
+	{{ show.title }}
 {% endblock %}
 
 {% block header_block %}
@@ -10,7 +10,34 @@ Search box
 
 
 {% block body_block %}
-SHOW NAME
+<div>
+{% if show %}
+	Show info:
+	<ul>
+	<li>Title: <strong>{{ show.title }}</strong></li>
+	<li>Year Released: {{show.year}}</li>
+	<li>Average Rating: {{show.avg_rating}}</li>
+	</ul>
+{% else %}
+	</br>
+	No show info available.
+	</br>
+{% endif %}
+	</div>
+<div>
+	Show Reviews:
+	{% if reviews %}
+	<ul>
+	{% for review in reviews %}
+	<li>{{ review.user }} : {{ review.comment }}</li>
+	{% endfor %}
+	</ul>
+{% endif %}
+</div>
+<div>
+	<button type="post" value="add-rating" onclick="location.href='/TVShowApp/show/{{ show.id }}/add-rating/'">Add Rating</button>
+</div>
+
 Display show's image, description of show, average rating, DB position.
 Show a list of indivdual ratings.
 Show button to rate this show, redirects to showname/add rating

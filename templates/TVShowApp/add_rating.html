@@ -1,7 +1,7 @@
 {% extends 'TVShowApp/base.html' %}
 
 {% block title_block %}
-	Add Rating
+Add Rating
 {% endblock %}
 
 {% block header_block %}
@@ -10,7 +10,7 @@ Search box
 
 
 {% block body_block %}
-Give a rating for Show Name (name is passed in)
+Give a rating for <strong>{{show.title}}</strong> </br>
 Load show image and display. 
 Form including a comment, and rating out of 10
 {% endblock %}
