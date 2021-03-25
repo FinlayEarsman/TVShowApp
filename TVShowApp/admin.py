@@ -3,6 +3,7 @@ from TVShowApp.models import Genre, Show, Belonging, Review
 
 
 class GenreAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('name',)}
     list_display = ('name',)
 
 
