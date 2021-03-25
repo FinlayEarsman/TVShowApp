@@ -14,7 +14,7 @@ put searchbox here
 {% if shows %}
 	<ul>
 	{% for show in shows %}
-		<li>{{ show.title }} : {{ show.avg_rating }}</li>
+		<li><a href="{% url 'TVShowApp:tv_show' show.id %}">{{ show.title }} </a> : {{ show.avg_rating }}</li>
 	{% endfor %}
 	</ul>
 {% else %}

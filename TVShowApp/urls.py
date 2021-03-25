@@ -5,10 +5,10 @@ app_name = 'TVShowApp'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('show/<int:show_id>', views.tv_show, name='tv_show'),
+    path('show/<int:show_id>/', views.tv_show, name='tv_show'),
     path('genres/<slug:genre_name_slug>/', views.show_genre, name='show_genre'),
-    path('genres/add', views.add_genres, name='add_genres'),
-    path('genres/delete/<int:id>', views.delete_genres, name='delete_genres'),
+    path('genres/add/', views.add_genres, name='add_genres'),
+    path('genres/delete/<int:id>/', views.delete_genres, name='delete_genres'),
     path('show/<int:show_id>/add-rating/', views.new_rating, name='new_rating'),
     path('request-show/', views.request_show, name='request_show'),
     path('login/', views.login_view, name='login'),
