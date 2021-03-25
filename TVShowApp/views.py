@@ -8,25 +8,32 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth.models import User
 
+
 def index(request):
-    show_list = Show.objects.order_by('-avg_rating')[:5]
     context_dict = {}
+    show_list = Show.objects.order_by('-avg_rating')[:5]
     context_dict['shows'] = show_list
     return render(request, 'TVShowApp/index.html', context=context_dict)
 
 
-def tv_show(request):
-    #needs the slug/name of the show to be passed to template
-    return render(request, 'TVShowApp/tv_show.html')
+def tv_show(request, show_id):
+    context_dict = {}
+    show = Show.objects.get(id=show_id)
+    reviews = Review.objects.filter(show=show.id)
+    context_dict['show'] = show
+    context_dict['reviews'] = reviews
+    return render(request, 'TVShowApp/tv_show.html', context=context_dict)
 
 
 def genres(request):
     return render(request, 'TVShowApp/genre.html')
 
 
-def new_rating(request):
-    #this isn't currently working because there isnt any shows
-    return render(request, 'TVShowApp/add_rating.html')
+def new_rating(request, show_id):
+    context_dict = {}
+    show = Show.objects.get(id=show_id)
+    context_dict['show'] = show
+    return render(request, 'TVShowApp/add_rating.html', context=context_dict)
 
 
 def request_show(request):
@@ -50,7 +57,7 @@ def login_view(request):
 
 
 def user_profile(request, username):
-    context_dict={}
+    context_dict = {}
     try:
         user = User.objects.get(username=username)
         reviews = Review.objects.filter(user=user)
@@ -67,7 +74,7 @@ def sign_up(request):
 
     if request.method == 'POST':
         user_form = UserForm(request.POST)
-        
+
         if user_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
@@ -78,8 +85,8 @@ def sign_up(request):
     else:
         user_form = UserForm()
 
-    return render(request, 'TVShowApp/sign_up.html', context = {'user_form':user_form,
-                                                                'registered':registered})
+    return render(request, 'TVShowApp/sign_up.html', context={'user_form': user_form,
+                                                              'registered': registered})
 
 
 def search_results(request):
@@ -88,6 +95,7 @@ def search_results(request):
 
 def review_requests(request):
     return HttpResponse("admin show request approval page")
+
 
 @login_required
 def user_logout(request):
@@ -116,7 +124,7 @@ def add_genres(request):
                 err = form.errors
                 return HttpResponse(err)
 
-        else: # GET METHOD
+        else:  # GET METHOD
             form = GenreForm()
             return HttpResponse(form)
     else:
