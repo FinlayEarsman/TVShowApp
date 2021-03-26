@@ -16,6 +16,11 @@
 	<li>Title: <strong>{{ show.title }}</strong></li>
 	<li>Year Released: {{show.year}}</li>
 	<li>Average Rating: {{show.avg_rating}}</li>
+	<li>
+	{% for genre in genres %}
+	<a href="{% url 'TVShowApp:show_genre' genre.slug %}">{{ genre.name }}</a> 
+	{% endfor %}
+	</li>
 	</ul>
 {% else %}
 	</br>

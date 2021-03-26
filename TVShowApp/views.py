@@ -22,8 +22,13 @@ def tv_show(request, show_id):
     context_dict = {}
     show = Show.objects.get(id=show_id)
     reviews = Review.objects.filter(show=show.id)
+    belongings = Belonging.objects.filter(show=show)
+    genres = []
+    for belonging in belongings:
+        genres.append(Genre.objects.get(name=belonging.genre))
     context_dict['show'] = show
     context_dict['reviews'] = reviews
+    context_dict['genres'] = genres
     return render(request, 'TVShowApp/tv_show.html', context=context_dict)
 
 def show_genre(request, genre_name_slug):
@@ -41,7 +46,7 @@ def show_genre(request, genre_name_slug):
         context_dict['shows'] = ""
     return render(request, 'TVShowApp/genre.html', context=context_dict)
 
-
+@login_required
 def new_rating(request, show_id):
     context_dict = {}
     show = Show.objects.get(id=show_id)
@@ -64,7 +69,7 @@ def login_view(request):
             return redirect(reverse("TVShowApp:index"))
         else:
             # Return an 'invalid login' error message.
-            messages.add_message(request, messages.INFO, 'invalid login, please check your inputs!')
+            messages.add_message(request, messages.INFO, 'Invalid login, please check your inputs!')
 
     return render(request, 'TVShowApp/login.html')
 
