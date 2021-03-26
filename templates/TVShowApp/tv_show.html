@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block header_block %}
-Search box
 {% endblock %}
 
 
@@ -35,7 +34,9 @@ Search box
 {% endif %}
 </div>
 <div>
-	<button type="post" value="add-rating" onclick="location.href='/TVShowApp/show/{{ show.id }}/add-rating/'">Add Rating</button>
+	<form action="{% url 'TVShowApp:new_rating' show.id %}">
+    <input type="submit" value="Add Rating" />
+</form>
 </div>
 
 Display show's image, description of show, average rating, DB position.

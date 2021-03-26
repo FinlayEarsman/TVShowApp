@@ -103,8 +103,15 @@ def sign_up(request):
 
 
 def search_results(request):
-    return render(request, 'TVShowApp/search_results.html')
-
+    if request.method == "POST":
+        context_dict = {}
+        search_bar = request.POST['search_bar']
+        shows = Show.objects.filter(title__contains=search_bar)
+        context_dict['search_bar'] = search_bar
+        context_dict['shows'] = shows
+        return render(request, 'TVShowApp/search_results.html', context=context_dict)
+    else:
+        return render(request, 'TVShowApp/search_results.html')
 
 def review_requests(request):
     return HttpResponse("admin show request approval page")

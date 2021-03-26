@@ -5,10 +5,18 @@
 {% endblock %}
 
 {% block header_block %}
-Search box
 {% endblock %}
 
 
 {% block body_block %}
-This is the search results. 
+{% if search_bar %}
+You searched for: {{ search_bar }}<br/>
+<ul>
+{% for result in shows %}
+	<li><a href="{% url 'TVShowApp:tv_show' result.id %}">{{ result.title }} </a> - {{result.year}}</li>
+{% endfor %}
+</ul>
+{% else %}
+You did not search for anything.
+{% endif %}
 {% endblock %}

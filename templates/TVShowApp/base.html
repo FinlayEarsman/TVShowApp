@@ -47,6 +47,11 @@
 		
 		<!-- this contains the search box or page title. consider having default as search and then overwrite -->
 		<div>
+			<form method = "POST" action = "{% url 'TVShowApp:search_results' %}">
+				{% csrf_token %}
+				<input type="search" placeholder="Search" name="search_bar" >
+				<button type="submit">Search</button>
+			</form>
 			{% block header_block %}
 			{% endblock %}
 		</div>
