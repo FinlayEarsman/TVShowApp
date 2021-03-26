@@ -31,6 +31,7 @@ def tv_show(request, show_id):
     context_dict['genres'] = genres
     return render(request, 'TVShowApp/tv_show.html', context=context_dict)
 
+
 def show_genre(request, genre_name_slug):
     context_dict = {}
     try:
@@ -45,6 +46,7 @@ def show_genre(request, genre_name_slug):
         context_dict['genre'] = ""
         context_dict['shows'] = ""
     return render(request, 'TVShowApp/genre.html', context=context_dict)
+
 
 @login_required
 def new_rating(request, show_id):
@@ -61,7 +63,7 @@ def request_show(request):
 def login_view(request):
     if request.method == "POST":
         username = request.POST['username']
-        password = request.POST['password'] 
+        password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -111,12 +113,15 @@ def search_results(request):
     if request.method == "POST":
         context_dict = {}
         search_bar = request.POST['search_bar']
+        users = User.objects.filter(username__contains=search_bar)
         shows = Show.objects.filter(title__contains=search_bar)
         context_dict['search_bar'] = search_bar
         context_dict['shows'] = shows
+        context_dict['users'] = users
         return render(request, 'TVShowApp/search_results.html', context=context_dict)
     else:
         return render(request, 'TVShowApp/search_results.html')
+
 
 def review_requests(request):
     return HttpResponse("admin show request approval page")

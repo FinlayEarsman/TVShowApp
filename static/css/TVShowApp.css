@@ -1,0 +1,116 @@
+body {
+    overflow-x: hidden;
+}
+
+.main {
+    height: 100%;
+    margin-left: 160px;
+    padding: 0px 10px;
+    background-color: #4E4E50;
+    overflow-x: hidden;
+    color: #f3f3f3;
+}
+
+.main .searchbar button {
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+.main .searchbar input[type=search] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+    width: 300px;
+}
+
+.main ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main .card {
+    padding: 5px;
+    color: #1A1A1D;
+    margin: 6px;
+}
+
+.main .card img {
+    object-fit: contain;
+}
+
+.main .card a {
+    color: #1A1A1D;
+}
+
+a:link {
+    color: #f3f3f3;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #f3f3f3;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #000000;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #00ffc4;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+.log_buttons {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 5px;
+}
+
+.log_buttons a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #f3f3f3;
+    display: block;
+    margin-right: 10px;
+}
+
+.sidebar {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #1A1A1D;
+    overflow-x: hidden;
+    padding-top: 20px;
+    color: #818181;
+    padding-left: 10px;
+}
+
+.sidebar a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.sidebar a:hover {
+    color: #3c3c3c;
+}

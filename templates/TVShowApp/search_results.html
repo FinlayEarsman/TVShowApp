@@ -1,7 +1,7 @@
 {% extends 'TVShowApp/base.html' %}
 
 {% block title_block %}
-	Search Results
+Search Results
 {% endblock %}
 
 {% block header_block %}
@@ -12,9 +12,12 @@
 {% if search_bar %}
 You searched for: {{ search_bar }}<br/>
 <ul>
-{% for result in shows %}
-	<li><a href="{% url 'TVShowApp:tv_show' result.id %}">{{ result.title }} </a> - {{result.year}}</li>
-{% endfor %}
+    {% for result in shows %}
+    <li><a href="{% url 'TVShowApp:tv_show' result.id %}">{{ result.title }} </a> - {{result.year}}</li>
+    {% endfor %}
+    {% for user in users %}
+    <li><a href="{% url 'TVShowApp:user_profile' user.username %}">{{ user.username }} </a></li>
+    {% endfor %}
 </ul>
 {% else %}
 You did not search for anything.

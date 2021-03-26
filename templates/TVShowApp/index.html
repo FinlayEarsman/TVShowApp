@@ -1,7 +1,7 @@
 {% extends 'TVShowApp/base.html' %}
-
+{% load static %}
 {% block title_block %}
-	Homepage
+Homepage
 {% endblock %}
 
 {% block header_block %}
@@ -9,26 +9,33 @@
 
 
 {% block body_block %}
-<h2>Top 5 rated TV shows</h2></br>
+<h2>Top 5 rated TV shows</h2>
 {% if shows %}
-	<ul>
-	{% for show in shows %}
-		<li><a href="{% url 'TVShowApp:tv_show' show.id %}">{{ show.title }} </a> : {{ show.avg_rating }}</li>
-	{% endfor %}
-	</ul>
+<div class="card-group flex-row flex-nowrap">
+    {% for show in shows %}
+    <div class="card h-100">
+        <img src="{% static 'images/no_picture.png' %}" class="card-img-top" alt="no picture available">
+        <div class="card-body">
+            <h5 class="card-title">{{ show.title }}</h5>
+            <p class="card-text">Show's average rating: {{ show.avg_rating }}</p>
+            <a href="{% url 'TVShowApp:tv_show' show.id %}" class="btn btn-outline-secondary">Show's page</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</br>
 {% else %}
 </br>
-There are no shows present
+Information not available.
 </br>
 {% endif %}
-
-<h2>Filter by Genre</h2></br>
+<h2>Filter by Genre</h2>
 {% if genres %}
-	<ul>
-	{% for genre in genres %}
-		<li><a href="{% url 'TVShowApp:show_genre' genre.slug %}">{{ genre.name }}</a></li>
-	{% endfor %}
-	</ul>
+<ul>
+    {% for genre in genres %}
+    <li><a href="{% url 'TVShowApp:show_genre' genre.slug %}">{{ genre.name }}</a></li>
+    {% endfor %}
+</ul>
 {% else %}
 There are currently no genres available.
 {% endif %}

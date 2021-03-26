@@ -1,69 +1,57 @@
 <! DOCTYPE html>
+{% load static %}
+<html lang=en>
+<head>
+    <link rel="stylesheet" href="{% static 'css/TVShowApp.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        TVShowApp -
+        {% block title_block %}
+        {% endblock %}
+    </title>
+</head>
 
+<body>
+<div class="sidebar">
+    <h1>TV SHOW APP</h1>
+    <a href="{% url 'TVShowApp:index' %}">Home</a>
+    {% if user.is_authenticated %}
+    <!-- Show these links when the user is logged in -->
+    <a href="{% url 'TVShowApp:user_profile' user.get_username %}">Your Profile</a>
+    <a href="{% url 'TVShowApp:request_show' %}">Request TV Show</a>
+    {% endif %}
+</div>
 
-<html>
-	<head>
-		<title>
-			TVShowApp -
-			{% block title_block %}
-				
-			{% endblock %}
-		</title>
-	</head>
-	
-	<body>
-	<!-- this should be the left sidebar -->
-	<div>
-		TV SHOW APP
-		<ul>
-		<li><a href="{% url 'TVShowApp:index' %}">Home Page</a></li>
-		{% if user.is_authenticated %}
-			<!-- Show these links when the user is logged in -->
-			<li><a href="{% url 'TVShowApp:user_profile' user.get_username %}">Your Profile</a></li>
-			<li><a href="{% url 'TVShowApp:request_show' %}">Request TV Show</a></li>
-		{% endif %}
-			
-		</ul>
+<div class="main">
+    <!-- this should be put at the top far right -->
+    <div class="log_buttons">
+        {% if user.is_authenticated %}
+        <!-- Show these links when the user is logged in -->
+        <a href="{% url 'TVShowApp:logout' %}">Logout</a>
+        {% else %}
+        <!-- Show these links when the user is NOT logged in -->
+        <a href="{% url 'TVShowApp:sign_up' %}">Sign Up</a>
+        <a href="{% url 'TVShowApp:login' %}">Login</a>
+        {% endif %}
+    </div>
+    <div class="searchbar">
+        <form method="POST" action="{% url 'TVShowApp:search_results' %}">
+            {% csrf_token %}
+            <input type="search" placeholder="Enter a TV show or username" name="search_bar">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    {% block header_block %}
+    {% endblock %}
+{% block body_block %}
+{% endblock %}
+</div>
 
-		</div>
-		
-		<!-- this should be put at the top far right -->
-		<div>
-			<ul>
-			{% if user.is_authenticated %}
-				<!-- Show these links when the user is logged in -->
-				<li><a href="{% url 'TVShowApp:logout' %}">Logout</a></li>
-				
-			{% else %}
-				<!-- Show these links when the user is NOT logged in -->
-				<li><a href="{% url 'TVShowApp:sign_up' %}">Sign Up</a></li>
-				<li><a href="{% url 'TVShowApp:login' %}">Login</a></li>
-			{% endif %}
-			
-			
-			</ul>
-
-		</div>
-		
-		<!-- this contains the search box or page title. consider having default as search and then overwrite -->
-		<div>
-			<form method = "POST" action = "{% url 'TVShowApp:search_results' %}">
-				{% csrf_token %}
-				<input type="search" placeholder="Search" name="search_bar" >
-				<button type="submit">Search</button>
-			</form>
-			{% block header_block %}
-			{% endblock %}
-		</div>
-		
-		
-		<div>
-			{% block body_block %}
-			{% endblock %}
-		</div>
-		
-		
-		
-		
-	</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+</body>
 </html>
