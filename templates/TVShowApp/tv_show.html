@@ -11,6 +11,7 @@
 {% block body_block %}
 <div>
     {% if show %}
+    <img src="/media/{{ show.photo }}" alt="No picture available">
     <h2>Show info:</h2>
     <ul>
         <li>Title: <strong>{{ show.title }}</strong></li>
@@ -36,11 +37,13 @@
         <li>{{ review.user }} : {{ review.comment }}</li>
         {% endfor %}
     </ul>
+    {% else %}
+        There are no reviews for this show yet.
     {% endif %}
 </div>
 <div>
     <form action="{% url 'TVShowApp:new_rating' show.id %}">
-        <input type="submit" value="Add Rating"/>
+        <input type="submit" value="Review This Show"/>
     </form>
 </div>
 

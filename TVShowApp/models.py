@@ -17,7 +17,6 @@ class Genre(models.Model):
 
 
 class Show(models.Model):
-    id = models.IntegerField(unique=True, primary_key=True)
     title = models.CharField(max_length=100)
     year = models.IntegerField()
     photo = models.ImageField(upload_to="show_images", blank=True)
@@ -37,7 +36,6 @@ class Belonging(models.Model):
 class Review(models.Model):
     show = models.ForeignKey(Show, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    id = models.IntegerField(unique=True, primary_key=True)
     comment = models.CharField(max_length=500)
     rating = models.IntegerField()
 
