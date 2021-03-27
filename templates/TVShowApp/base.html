@@ -15,14 +15,31 @@
 </head>
 
 <body>
-<div class="sidebar">
-    <h1>TV SHOW APP</h1>
-    <a href="{% url 'TVShowApp:index' %}">Home</a>
-    {% if user.is_authenticated %}
-    <!-- Show these links when the user is logged in -->
-    <a href="{% url 'TVShowApp:user_profile' user.get_username %}">Your Profile</a>
-    <a href="{% url 'TVShowApp:request_show' %}">Request TV Show</a>
-    {% endif %}
+<div class="sidebar-wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h1>TV SHOW APP</h1>
+        </div>
+        <ul class="list-unstyled components">
+            <li><a href="{% url 'TVShowApp:index' %}">Home</a></li>
+            {% if user.is_authenticated %}
+            <!-- Show these links when the user is logged in -->
+            <li><a href="{% url 'TVShowApp:user_profile' user.get_username %}">Your Profile</a></li>
+            <li><a href="{% url 'TVShowApp:request_show' %}">Request TV Show</a></li>
+            {% endif %}
+            <li>
+                <a href="#" aria-expanded="false" class="nav-link dropdown-toggle" role="button"
+                   data-bs-toggle="dropdown" id="navbarDarkDropdownMenuLink">Genres</a>
+                {% if genres %}
+                <ul class="dropdown-menu dropdown-menu-dark">
+                    {% for genre in genres %}
+                    <li><a href="{% url 'TVShowApp:show_genre' genre.slug %}">{{genre.name}}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
 </div>
 
 <div class="main">
@@ -46,8 +63,8 @@
     </div>
     {% block header_block %}
     {% endblock %}
-{% block body_block %}
-{% endblock %}
+    {% block body_block %}
+    {% endblock %}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"

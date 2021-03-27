@@ -11,7 +11,8 @@ Homepage
 {% block body_block %}
 <h2>Top 5 rated TV shows</h2>
 {% if shows %}
-<div class="card-group flex-row flex-nowrap">
+<div class="cards">
+<div class="card-group flex-row flex-wrap">
     {% for show in shows %}
     <div class="card h-100">
         <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available">
@@ -23,21 +24,9 @@ Homepage
     </div>
     {% endfor %}
 </div>
-</br>
+</div>
 {% else %}
 </br>
 Information not available.
-</br>
 {% endif %}
-<h2>Filter by Genre</h2>
-{% if genres %}
-<ul>
-    {% for genre in genres %}
-    <li><a href="{% url 'TVShowApp:show_genre' genre.slug %}">{{ genre.name }}</a></li>
-    {% endfor %}
-</ul>
-{% else %}
-There are currently no genres available.
-{% endif %}
-
 {% endblock %}

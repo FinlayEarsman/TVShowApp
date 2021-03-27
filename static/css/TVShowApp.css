@@ -2,6 +2,30 @@ body {
     overflow-x: hidden;
 }
 
+a:link {
+    color: #f3f3f3;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #f3f3f3;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #000000;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #00ffc4;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
 .main {
     height: 100%;
     margin-left: 160px;
@@ -35,64 +59,41 @@ body {
     padding: 0;
 }
 
-.main .card {
+.cards{
+    padding: 5px;
+    background-color: #858585;
+}
+
+.card {
     padding: 5px;
     color: #1A1A1D;
     margin: 6px;
 }
 
-.main .card img {
-    object-fit: contain;
-}
-
-.main .card a {
+.card a {
     color: #1A1A1D;
-}
-
-a:link {
-    color: #f3f3f3;
-    background-color: transparent;
-    text-decoration: none;
-}
-
-a:visited {
-    color: #f3f3f3;
-    background-color: transparent;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #000000;
-    background-color: transparent;
-    text-decoration: underline;
-}
-
-a:active {
-    color: #00ffc4;
-    background-color: transparent;
-    text-decoration: underline;
 }
 
 .log_buttons {
     position: fixed;
-    top: 0;
-    right: 0;
-    padding: 5px;
+    top: 5px;
+    right: 5px;
+    padding: 2px;
+    background-color: #858585;
 }
 
 .log_buttons a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 25px;
+    padding: 6px 8px 6px 8px;
+    font-size: 20px;
     color: #f3f3f3;
-    display: block;
-    margin-right: 10px;
+    display: inline-grid;
 }
 
-.sidebar {
+.sidebar-wrapper {
     height: 100%;
     width: 160px;
     position: fixed;
+    align-items: stretch;
     z-index: 1;
     top: 0;
     left: 0;
@@ -100,17 +101,55 @@ a:active {
     overflow-x: hidden;
     padding-top: 20px;
     color: #818181;
-    padding-left: 10px;
+    border-right: white;
 }
 
-.sidebar a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
+.sidebar-wrapper .sidebar-header{
+    margin-left: 10px;
+}
+
+.sidebar-wrapper a {
+    padding: 6px 0px 3px;
+    text-align: start;
     font-size: 25px;
     color: #818181;
     display: block;
+    width: border-box;
+    margin-left: 4px;
 }
 
-.sidebar a:hover {
-    color: #3c3c3c;
+.sidebar-wrapper a:hover {
+    color: #ffffff;
+}
+
+.sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
+}
+
+.sidebar.active {
+    margin-left: -250px;
+}
+
+a[data-bs-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-menu a:hover {
+    color: #ffffff;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: relative;
+    left: 0px;
+    transform: translateY(50%);
+    color: #818181;
+}
+
+.show_info img {
+    width: 30%;
+    max-height: 600px;
+    object-fit: contain;
 }

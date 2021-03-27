@@ -1,4 +1,5 @@
 {% extends 'TVShowApp/base.html' %}
+{% load static %}
 
 {% block title_block %}
 {{ show.title }}
@@ -9,9 +10,9 @@
 
 
 {% block body_block %}
-<div>
+<div class="show_info">
     {% if show %}
-    <img src="/media/{{ show.photo }}" alt="No picture available">
+    <img src="/media/{{ show.photo }}" alt="No picture available" width="300" height="420">
     <h2>Show info:</h2>
     <ul>
         <li>Title: <strong>{{ show.title }}</strong></li>
