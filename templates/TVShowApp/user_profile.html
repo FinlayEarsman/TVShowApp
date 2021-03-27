@@ -16,7 +16,7 @@
 <ul>
 
 	{% for review in reviews %}
-		<li><u>{{ review.show }}</u> : {{ review.comment }} </br> Rating: {{ review.rating }}</li>
+		<li><a href= "{% url 'TVShowApp:tv_show' review.show.id %}"> {{ review.show }}</a> : {{ review.comment }} </br> Rating: {{ review.rating }}</li>
 	{% endfor %}
 </ul>
 {% else %}

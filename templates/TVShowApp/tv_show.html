@@ -34,7 +34,7 @@
     {% if reviews %}
     <ul>
         {% for review in reviews %}
-        <li>{{ review.user }} : {{ review.comment }}</li>
+        <li><a href="{% url 'TVShowApp:user_profile' review.user.get_username %}">{{ review.user }}</a> : {{ review.comment }}</li>
         {% endfor %}
     </ul>
     {% else %}
