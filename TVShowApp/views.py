@@ -50,6 +50,7 @@ def show_genre(request, genre_name_slug):
 
 @login_required
 def new_rating(request, show_id):
+
     context_dict = {}
     show = Show.objects.get(id=show_id)
     context_dict['show'] = show

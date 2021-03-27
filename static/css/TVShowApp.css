@@ -1,6 +1,3 @@
-body {
-    overflow-x: hidden;
-}
 
 a:link {
     color: #f3f3f3;
@@ -26,16 +23,12 @@ a:active {
     text-decoration: underline;
 }
 
-.main {
-    height: 100%;
-    margin-left: 160px;
-    padding: 0px 10px;
-    background-color: #4E4E50;
-    overflow-x: hidden;
-    color: #f3f3f3;
+.searchbar {
+    position: relative;
+    display: block;
 }
 
-.main .searchbar button {
+.searchbar button {
     padding: 6px 10px;
     margin-top: 8px;
     margin-right: 16px;
@@ -45,12 +38,23 @@ a:active {
     cursor: pointer;
 }
 
-.main .searchbar input[type=search] {
-    padding: 6px;
+.searchbar input[type=search] {
+    padding: 6px 10px;
+    position: relative;
     margin-top: 8px;
     font-size: 17px;
+    width: 70%;
     border: none;
-    width: 300px;
+    background: #f3f3f3;
+}
+
+.main {
+    height: 100%;
+    margin-left: 160px;
+    padding: 0px 10px;
+    background-color: #4E4E50;
+    overflow-x: hidden;
+    color: #f3f3f3;
 }
 
 .main ul {
@@ -59,15 +63,17 @@ a:active {
     padding: 0;
 }
 
-.cards{
+.card-group{
     padding: 5px;
     background-color: #858585;
+    justify-content: space-evenly;
 }
 
 .card {
     padding: 5px;
     color: #1A1A1D;
     margin: 6px;
+    width: 10rem;
 }
 
 .card a {
@@ -76,18 +82,12 @@ a:active {
 
 .log_buttons {
     position: fixed;
-    top: 5px;
-    right: 5px;
-    padding: 2px;
-    background-color: #858585;
+    left: 5px;
+    bottom: 10px;
+    display: block;
+    z-index: 1;
 }
 
-.log_buttons a {
-    padding: 6px 8px 6px 8px;
-    font-size: 20px;
-    color: #f3f3f3;
-    display: inline-grid;
-}
 
 .sidebar-wrapper {
     height: 100%;
@@ -128,10 +128,6 @@ a:active {
     min-height: 100vh;
 }
 
-.sidebar.active {
-    margin-left: -250px;
-}
-
 a[data-bs-toggle="collapse"] {
     position: relative;
 }
@@ -146,10 +142,4 @@ a[data-bs-toggle="collapse"] {
     left: 0px;
     transform: translateY(50%);
     color: #818181;
-}
-
-.show_info img {
-    width: 30%;
-    max-height: 600px;
-    object-fit: contain;
 }

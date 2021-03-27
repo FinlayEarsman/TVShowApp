@@ -33,27 +33,29 @@
                 {% if genres %}
                 <ul class="dropdown-menu dropdown-menu-dark">
                     {% for genre in genres %}
-                    <li><a href="{% url 'TVShowApp:show_genre' genre.slug %}">{{genre.name}}</a></li>
+                    <li><a style="font-size: 18px;"
+                           href="{% url 'TVShowApp:show_genre' genre.slug %}">{{genre.name}}</a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}
             </li>
         </ul>
     </nav>
+    <div class="log_buttons">
+        {% if user.is_authenticated %}
+        <!-- Show these links when the user is logged in -->
+        <a href="{% url 'TVShowApp:logout' %}"><strong>Logout</strong></a>
+        {% else %}
+        <!-- Show these links when the user is NOT logged in -->
+        <a href="{% url 'TVShowApp:sign_up' %}"><strong>Sign Up</strong></a>
+        <a href="{% url 'TVShowApp:login' %}"><strong>Login</strong></a>
+        {% endif %}
+    </div>
 </div>
 
 <div class="main">
     <!-- this should be put at the top far right -->
-    <div class="log_buttons">
-        {% if user.is_authenticated %}
-        <!-- Show these links when the user is logged in -->
-        <a href="{% url 'TVShowApp:logout' %}">Logout</a>
-        {% else %}
-        <!-- Show these links when the user is NOT logged in -->
-        <a href="{% url 'TVShowApp:sign_up' %}">Sign Up</a>
-        <a href="{% url 'TVShowApp:login' %}">Login</a>
-        {% endif %}
-    </div>
+
     <div class="searchbar">
         <form method="POST" action="{% url 'TVShowApp:search_results' %}">
             {% csrf_token %}

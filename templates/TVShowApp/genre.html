@@ -1,24 +1,29 @@
 {% extends 'TVShowApp/base.html' %}
 {% load static %}
 {% block title_block %}
-	{{ genre.name }} TV Shows
+{{ genre.name }} TV Shows
 {% endblock %}
 
 {% block header_block %}
-<h1>{{ genre.name }}</h1>
+<h1>All {{ genre.name }} Shows</h1>
 {% endblock %}
-
 
 {% block body_block %}
 
-    {% if shows %}
-        <ul>
-        {% for show in shows %}
-            <li><a href="{% url 'TVShowApp:tv_show' show.id %}">{{ show.title }} </a> : {{ show.avg_rating }}</li>
-        {% endfor %}
-        </ul>
+{% if shows %}
+<div class="genre card-group flex-row flex-wrap">
+    {% for show in shows %}
+    <div class="card">
+        <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available">
+        <div class="card-body">
+            <h5 class="card-title">{{ show.title }}</h5>
+            <p class="card-text">Show's average rating: {{ show.avg_rating }}</p>
+            <a href="{% url 'TVShowApp:tv_show' show.id %}" class="btn btn-outline-secondary">Show's page</a>
+        </div>
+    </div>
+    {% endfor %}
     {% else %}
-        There are no shows in this genre.
+    There are no shows in this genre.
     {% endif%}
-
+</div>
 {% endblock %}
