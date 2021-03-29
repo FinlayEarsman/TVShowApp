@@ -1,6 +1,7 @@
 from django import forms
 from TVShowApp.models import Genre
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class GenreForm(forms.ModelForm):
@@ -18,3 +19,16 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username','email','password',)
+
+class ShowForm(forms.ModelForm):
+    title = forms.CharField(max_length=100,
+                           help_text="Please enter the titke of the show.")
+    year = forms.IntegerField(help_text="Please enter the year of the show.")
+    photo = forms.ImageField(help_text="Please upload a photo for the show.")
+    avg_rating = forms.FloatField(help_text="Please enter the rate of the show.")
+
+
+class ReviewForm(forms.ModelForm):
+    comment = forms.CharField(max_length=500)
+    rating = forms.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)])
+
