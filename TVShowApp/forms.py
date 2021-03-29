@@ -1,6 +1,7 @@
 from django import forms
 from TVShowApp.models import Genre
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class GenreForm(forms.ModelForm):
@@ -29,5 +30,5 @@ class ShowForm(forms.ModelForm):
 
 class ReviewForm(forms.ModelForm):
     comment = forms.CharField(max_length=500)
-    rating = forms.IntegerField()
+    rating = forms.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)])
 
