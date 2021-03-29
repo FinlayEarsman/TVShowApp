@@ -13,13 +13,11 @@ class GenreForm(forms.ModelForm):
         model = Genre
         fields = ('name',)
 
-<<<<<<< Updated upstream
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = User
         fields = ('username','email','password',)
-=======
 
 class ShowForm(forms.ModelForm):
     title = forms.CharField(max_length=100,
@@ -33,4 +31,3 @@ class ReviewForm(forms.ModelForm):
     comment = forms.CharField(max_length=500)
     rating = forms.IntegerField()
 
->>>>>>> Stashed changes
