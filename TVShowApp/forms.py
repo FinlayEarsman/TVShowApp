@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib.postgres.forms import RangeWidget
 from django.forms import NumberInput, Textarea
 from TVShowApp.models import Genre, Review
 from django.contrib.auth.models import User
