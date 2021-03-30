@@ -11,14 +11,14 @@ a:visited {
     text-decoration: none;
 }
 
-a:hover {
-    color: #000000;
+.main a:hover {
+    color: #ffffff;
     background-color: transparent;
     text-decoration: underline;
 }
 
-a:active {
-    color: #00ffc4;
+.main a:active {
+    color: #818181;
     background-color: transparent;
     text-decoration: underline;
 }
@@ -63,17 +63,22 @@ a:active {
     padding: 0;
 }
 
-.card-group{
-    padding: 5px;
+.card-wrapper {
+    display: inline-block;
     background-color: #858585;
-    justify-content: space-evenly;
+    padding: 5px;
 }
 
-.card {
+.card-group {
+    justify-content: flex-start; !important;
+}
+
+.card-group .card {
     padding: 5px;
     color: #1A1A1D;
     margin: 6px;
-    width: 10rem;
+    max-width: 20rem;
+    min-width: 20rem;
 }
 
 .card a {
@@ -83,11 +88,10 @@ a:active {
 .log_buttons {
     position: fixed;
     left: 5px;
-    bottom: 10px;
+    bottom: 20px;
     display: block;
     z-index: 1;
 }
-
 
 .sidebar-wrapper {
     height: 100%;
@@ -104,7 +108,7 @@ a:active {
     border-right: white;
 }
 
-.sidebar-wrapper .sidebar-header{
+.sidebar-wrapper .sidebar-header {
     margin-left: 10px;
 }
 
@@ -132,6 +136,14 @@ a[data-bs-toggle="collapse"] {
     position: relative;
 }
 
+.dropdown-menu {
+    background-color: #00ffc4;
+}
+
+.dropdown-menu a {
+    color: #a4a4a4;
+}
+
 .dropdown-menu a:hover {
     color: #ffffff;
 }
@@ -142,4 +154,8 @@ a[data-bs-toggle="collapse"] {
     left: 0px;
     transform: translateY(50%);
     color: #818181;
+}
+
+.row {
+    display: block;
 }

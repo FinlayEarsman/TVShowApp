@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, reverse, Http404
 from django.http import HttpResponse
 from .models import Genre, Show, Belonging, Review
-from .forms import GenreForm, UserForm
+from .forms import GenreForm, UserForm, ReviewForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth.models import User
 
@@ -28,7 +27,7 @@ def tv_show(request, show_id):
         genres.append(Genre.objects.get(name=belonging.genre))
     context_dict['show'] = show
     context_dict['reviews'] = reviews
-    context_dict['genres'] = genres
+    context_dict['show_genres'] = genres
     return render(request, 'TVShowApp/tv_show.html', context=context_dict)
 
 
@@ -48,13 +47,20 @@ def show_genre(request, genre_name_slug):
     return render(request, 'TVShowApp/genre.html', context=context_dict)
 
 
-@login_required
 def new_rating(request, show_id):
-
-    context_dict = {}
     show = Show.objects.get(id=show_id)
-    context_dict['show'] = show
-    return render(request, 'TVShowApp/add_rating.html', context=context_dict)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = Review(show=show, comment=form.cleaned_data['comment'], rating=form.cleaned_data['rating'], user=request.user)
+            review.save()
+            return redirect(reverse("TVShowApp:index"))
+        else:
+            print(form.errors)
+    else:
+        form = ReviewForm()
+        context_dict = {'show': show, 'form': form}
+        return render(request, 'TVShowApp/add_rating.html', context=context_dict)
 
 
 def request_show(request):
@@ -106,8 +112,7 @@ def sign_up(request):
     else:
         user_form = UserForm()
 
-    return render(request, 'TVShowApp/sign_up.html', context={'user_form': user_form,
-                                                              'registered': registered})
+    return render(request, 'TVShowApp/sign_up.html', context={'user_form': user_form, 'registered': registered})
 
 
 def search_results(request):
@@ -138,9 +143,8 @@ def user_logout(request):
 
 @login_required
 def add_genres(request):
-    # # if user is login and admin
+    # if user is login and admin
     if request.user.is_superuser:
-        # A HTTP POST?
         if request.method == "POST":
             form = GenreForm(request.POST)
             # Have we been provided with a valid form?

@@ -1,7 +1,8 @@
 from django import forms
-from TVShowApp.models import Genre
+from django.contrib.postgres.forms import RangeWidget
+from django.forms import NumberInput, Textarea
+from TVShowApp.models import Genre, Review
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class GenreForm(forms.ModelForm):
@@ -14,21 +15,27 @@ class GenreForm(forms.ModelForm):
         model = Genre
         fields = ('name',)
 
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
+
     class Meta:
         model = User
-        fields = ('username','email','password',)
+        fields = ('username', 'email', 'password',)
+
 
 class ShowForm(forms.ModelForm):
     title = forms.CharField(max_length=100,
-                           help_text="Please enter the titke of the show.")
+                            help_text="Please enter the title of the show.")
     year = forms.IntegerField(help_text="Please enter the year of the show.")
     photo = forms.ImageField(help_text="Please upload a photo for the show.")
     avg_rating = forms.FloatField(help_text="Please enter the rate of the show.")
 
 
 class ReviewForm(forms.ModelForm):
-    comment = forms.CharField(max_length=500)
-    rating = forms.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(100)])
+    comment = forms.CharField(widget=Textarea(attrs={'rows': '2', 'cols': '30'}), label="Comment:")
+    rating = forms.IntegerField(widget=forms.NumberInput(attrs={'type': 'range', 'step': 1, 'max': 10, 'min': 1}))
 
+    class Meta:
+        model = Review
+        fields = ('comment', 'rating')

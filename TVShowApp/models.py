@@ -8,9 +8,9 @@ class Genre(models.Model):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(unique=True)
 
-    def save(self,*args, **kwargs):
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        super(Genre, self).save(*args,**kwargs)
+        super(Genre, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -32,6 +32,7 @@ class Belonging(models.Model):
 
     def __str__(self):
         return f"{self.show}({self.genre})"
+
 
 class Review(models.Model):
     show = models.ForeignKey(Show, on_delete=models.CASCADE)

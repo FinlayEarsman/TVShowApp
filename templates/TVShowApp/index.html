@@ -11,7 +11,7 @@ Homepage
 {% block body_block %}
 <h2>Top 5 rated TV shows</h2>
 {% if shows %}
-
+<div class="card-wrapper">
 <div class="card-group">
     {% for show in shows %}
     <div class="card h-100">
@@ -24,7 +24,7 @@ Homepage
     </div>
     {% endfor %}
 </div>
-
+</div>
 {% else %}
 </br>
 Information not available.
