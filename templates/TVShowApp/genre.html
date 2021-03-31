@@ -15,7 +15,7 @@
 <div class="card-group flex-row flex-wrap">
     {% for show in shows %}
     <div class="card">
-        <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available">
+        <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available" width="200" height="450">
         <div class="card-body">
             <h5 class="card-title">{{ show.title }}</h5>
             <p class="card-text">Show's average rating: {{ show.avg_rating }}</p>

@@ -15,7 +15,7 @@ Homepage
 <div class="card-group">
     {% for show in shows %}
     <div class="card h-100">
-        <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available">
+        <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available" width="200" height="450">
         <div class="card-body">
             <h5 class="card-title">{{ show.title }}</h5>
             <p class="card-text">Average rating: {{ show.avg_rating }}</p>
