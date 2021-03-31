@@ -5,12 +5,9 @@ from django.contrib.auth.models import User
 
 
 class GenreForm(forms.ModelForm):
-    name = forms.CharField(max_length=Genre.NAME_MAX_LENGTH,
-                           help_text="Please enter the name of the new genre.")
+    name = forms.CharField(max_length=Genre.NAME_MAX_LENGTH, help_text="Please enter the name of the new genre.")
 
-    # An inline class to provide
     class Meta:
-        # Provide an association
         model = Genre
         fields = ('name',)
 
@@ -24,14 +21,13 @@ class UserForm(forms.ModelForm):
 
 
 class ShowForm(forms.ModelForm):
-    title = forms.CharField(max_length=100,
-                            help_text="Please enter the title of the show.")
+    title = forms.CharField(max_length=100, help_text="Please enter the title of the show.")
     year = forms.IntegerField(help_text="Please enter the year of the show.")
     photo = forms.ImageField(help_text="Please upload a photo for the show.")
 
     class Meta:
-        model=Show
-        fields=('title','year','photo','avg_rating','reviewed')
+        model = Show
+        fields = ('title', 'year', 'photo', 'avg_rating', 'reviewed')
 
 
 class ReviewForm(forms.ModelForm):

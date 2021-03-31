@@ -1,29 +1,41 @@
 {% extends 'TVShowApp/base.html' %}
 {% load static %}
 {% block title_block %}
-	Log In
+Log In
 {% endblock %}
 
 {% block header_block %}
-Log In
+<h2>Log In</h2>
 {% endblock %}
 
 
 {% block body_block %}
 {#render form messages#}
-    {% if messages %}
-  	{% for message in messages %}
-  		<p>{{ message }}</p>
-  	{% endfor %}
-  {% endif %}
+{% if messages %}
+{% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %}
+{% endif %}
 
 
 <form id="login_form" method="post" action="">
-		{% csrf_token %}
-		Username: <input type="text" name="username" value="" size="25" />
-		<br />
-		Password: <input type="password" name="password" value="" size="25" />
-		<br />
-		<input type="submit" value="Log In" />
-	</form>
+    {% csrf_token %}
+    <div id="login_wrapper" class="container w-25">
+        <div class="row align-items-start">
+        <div class="input-group mb-3 col">
+            <span class="input-group-text" id="login_username">Username</span>
+            <input type="text" name="username" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-default">
+        </div>
+        </div>
+        <div class="row align-items-start">
+        <div class="input-group mb-3 col">
+            <span class="input-group-text" id="login_password">Password</span>
+            <input type="password" name="password" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-default">
+        </div>
+            <input type="submit" class="btn btn-secondary w-25" value="Log In"/>
+        </div>
+    </div>
+</form>
 {% endblock %}
