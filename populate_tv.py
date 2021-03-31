@@ -25,7 +25,7 @@ def populate():
     criminal_minds_reviews = [
         {'user':'test1',
          'comment':'This is a comment about Criminal Minds',
-         'rating':5},
+         'rating':10},
         {'user':'test2',
          'comment':'This is a comment about Criminal Minds',
          'rating':3}
@@ -34,72 +34,103 @@ def populate():
     the_blacklist_reviews = [
         {'user':'test2',
          'comment':'This is a comment about The Blacklist',
-         'rating':4}
+         'rating':2},
+        {'user':'test1',
+         'comment':'This is a comment about The Blacklist',
+         'rating':4},
+        {'user':'test3',
+         'comment':'This is a comment about The Blacklist',
+         'rating':9},
+        {'user':'test4',
+         'comment':'This is a comment about The Blacklist',
+         'rating':5}
     ]
 
     game_of_thrones_reviews = [
         {'user':'test3',
          'comment':'This is a comment about Game of Thrones',
-         'rating':1}
+         'rating':2},
+        {'user':'test4',
+         'comment':'This is a comment about Game of Thrones',
+         'rating':10},
+        {'user':'test1',
+         'comment':'This is a comment about Game of Thrones',
+         'rating':6}
     ]
 
     community_reviews = [
          {'user':'test1',
          'comment':'This is a comment about Community',
-         'rating':3}
+         'rating':3},
+         {'user':'test4',
+         'comment':'This is a comment about Community',
+         'rating':8}
+    ]
+
+    buffy_the_vampire_slayer_reviews = [
+        {'user':'test3',
+         'comment':'This is a comment about Buffy the Vampire Slayer',
+         'rating':2},
+        {'user':'test4',
+         'comment':'This is a comment about Buffy the Vampire Slayer',
+         'rating':3},
+        {'user':'test2',
+         'comment':'This is a comment about Buffy the Vampire Slayer',
+         'rating':5}
     ]
 
     shows = [
         {'title':'Criminal Minds',
          'year':2005,
          'genres':['Drama','Crime','Mystery'],
-         'avg_rating': 5.0,
+         'avg_rating': 6.5,
          'reviews':criminal_minds_reviews,
          'photo':os.path.join(IMAGES_DIR,'cm.jpg'),
          'reviewed':True},
         {'title':'Line of Duty',
          'year':2012,
          'genres':['Drama','Crime'],
-         'avg_rating': 4.4,
+         'avg_rating': 0.0,
          'photo':os.path.join(IMAGES_DIR,'lod.jpg'),
          'reviewed':True},
         {'title':'The Blacklist',
          'year':2013,
          'genres':['Drama','Crime'],
-         'avg_rating': 2.9,
+         'avg_rating': 5,
          'reviews':the_blacklist_reviews,
          'photo':os.path.join(IMAGES_DIR,'tb.jpg'),
          'reviewed':True},
         {'title':"Grey's Anatomy",
          'year':2005,
          'genres':['Drama'],
-         'avg_rating': 3.6,
+         'avg_rating': 0.0,
          'photo':os.path.join(IMAGES_DIR,'ga.jpg'),
          'reviewed':True},
         {'title': "Community",
          'year':2009,
          'genres':['Comedy'],
-         'avg_rating':3.5,
+         'avg_rating':5.5,
          'reviews':community_reviews,
          'photo':os.path.join(IMAGES_DIR,'c.jpg'),
          'reviewed':True},
         {'title': "Game of Thrones",
          'year':2011,
          'genres':['Drama','Fantasy','Adventure'],
-         'avg_rating':1.8,
+         'avg_rating':6,
          'reviews':game_of_thrones_reviews,
          'photo':os.path.join(IMAGES_DIR,'got.jpg'),
          'reviewed':True},
          {'title': "The Mandalorian",
          'year':2019,
          'genres':['Action','Sci-Fi'],
-         'avg_rating':4.1,
+         'avg_rating':0.0,
          'photo':os.path.join(IMAGES_DIR,'tm.jpg'),
          'reviewed':True},
          {'title': "Buffy The Vampire Slayer",
          'year':1997,
          'genres':['Action','Fantasy','Drama'],
-         'avg_rating':4.6,
+         'avg_rating':3.3,
+         'reviews':buffy_the_vampire_slayer_reviews,
          'photo':os.path.join(IMAGES_DIR,'btvs.jpg'),
          'reviewed':True}
     ]

@@ -54,6 +54,14 @@ def new_rating(request, show_id):
         if form.is_valid():
             review = Review(show=show, comment=form.cleaned_data['comment'], rating=form.cleaned_data['rating'], user=request.user)
             review.save()
+
+            reviews_for_show = Review.objects.filter(show=show)
+            running_total = 0
+            for rev in reviews_for_show:
+                running_total += rev.rating
+            average_across_reviews = running_total / len(reviews_for_show)
+            show.avg_rating = round(average_across_reviews,1)
+            show.save()
             return redirect(reverse("TVShowApp:index"))
         else:
             print(form.errors)
