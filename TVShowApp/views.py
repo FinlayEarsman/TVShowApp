@@ -151,7 +151,10 @@ def search_results(request):
 
 
 def review_requests(request):
-    return HttpResponse("admin show request approval page")
+    context_dict = {}
+    unreviewed_shows = Show.objects.filter(reviewed=False)
+    context_dict['shows'] = unreviewed_shows
+    return render(request, 'TVShowApp/requests.html',context=context_dict)
 
 
 @login_required

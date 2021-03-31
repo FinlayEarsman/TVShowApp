@@ -1,0 +1,24 @@
+{% extends 'TVShowApp/base.html' %}
+{% load static %}
+{% block title_block %}
+	TV Show Requests
+{% endblock %}
+
+{% block header_block %}
+{% endblock %}
+
+
+{% block body_block %}
+
+{% if shows %}
+    <ul>
+    {% for show in shows %}
+        <!-- Display info about the show and maybe a button to approve it ?-->
+        <li>{{ show.title }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+There are no shows to review!
+{% endif %}
+
+{% endblock %}
