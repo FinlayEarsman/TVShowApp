@@ -27,6 +27,9 @@
             <li><a href="{% url 'TVShowApp:user_profile' user.get_username %}">Your Profile</a></li>
             <li><a href="{% url 'TVShowApp:request_show' %}">Request TV Show</a></li>
             {% endif %}
+            {% if user.is_staff %}
+            <li><a href="{% url 'TVShowApp:review_requests'%}">Review Requested Shows</a></li>
+            {% endif %}
             <li>
                 <a href="#" aria-expanded="false" class="nav-link dropdown-toggle" role="button"
                    data-bs-toggle="dropdown" id="navbarDarkDropdownMenuLink">Genres</a>
