@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, Http404
 from django.http import HttpResponse
 from .models import Genre, Show, Belonging, Review
-from .forms import GenreForm, UserForm, ReviewForm
+from .forms import GenreForm, UserForm, ReviewForm, ShowForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -64,7 +64,20 @@ def new_rating(request, show_id):
 
 
 def request_show(request):
-    return render(request, 'TVShowApp/request_show.html')
+    
+    if request.method == 'POST':
+        form = ShowForm(request.POST)
+        if form.is_valid:
+            s = Show.objects.create(title=request.POST['show_name'],year=request.POST['year_released'],avg_rating=0,
+                                    photo=request.FILES.get('photo'),reviewed=False)
+            s.save()
+            return redirect(reverse("TVShowApp:index"))
+        else:
+            print(form.errors)
+    else:
+        form = ReviewForm()
+        context_dict = {'form':form}
+        return render(request, 'TVShowApp/request_show.html', context=context_dict)
 
 
 def login_view(request):

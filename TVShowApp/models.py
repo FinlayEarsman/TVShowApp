@@ -17,10 +17,11 @@ class Genre(models.Model):
 
 
 class Show(models.Model):
-    title = models.CharField(max_length=100)
-    year = models.IntegerField()
-    photo = models.ImageField(upload_to="show_images", blank=True)
-    avg_rating = models.FloatField()
+    title = models.CharField(max_length=100)                       #Title of TV Show
+    year = models.IntegerField()                                   #Year of Release
+    photo = models.ImageField(upload_to="show_images", blank=True) #Photo/Poster of Show
+    avg_rating = models.FloatField(default=0)                      #Average Rating Across All User Reviews
+    reviewed = models.BooleanField(default=False)                  #Has the show been marked as correct by an admin?
 
     def __str__(self):
         return self.title

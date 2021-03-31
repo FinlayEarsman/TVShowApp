@@ -10,7 +10,7 @@ Request a Show
 
 
 {% block body_block %}
-<form id="show_form" method="post" action="{% url 'TVShowApp:request_show' %}">
+<form id="show_form" method="post" action="{% url 'TVShowApp:request_show' %}" enctype="multipart/form-data">
 		{% csrf_token %}
 		Name of show: <input type="text" name="show_name" value="" size="25" />
 		<br />
@@ -18,7 +18,7 @@ Request a Show
 		<br />
 		Genre(s): <input type="text" name="genre" value="" size="25" />
 		<br />
-		Poster: <input type="text" name="poster" value="" size="25" />
+		Photo: <input type="file" name="photo" accept="image/png, image/jpeg" />
 		<br />
 		<input type="submit" value="Submit Request" />
 	</form>

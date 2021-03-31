@@ -55,52 +55,60 @@ def populate():
          'genres':['Drama','Crime','Mystery'],
          'avg_rating': 5.0,
          'reviews':criminal_minds_reviews,
-         'photo':os.path.join(IMAGES_DIR,'cm.jpg')},
+         'photo':os.path.join(IMAGES_DIR,'cm.jpg'),
+         'reviewed':True},
         {'title':'Line of Duty',
          'year':2012,
          'genres':['Drama','Crime'],
          'avg_rating': 4.4,
-         'photo':os.path.join(IMAGES_DIR,'lod.jpg')},
+         'photo':os.path.join(IMAGES_DIR,'lod.jpg'),
+         'reviewed':True},
         {'title':'The Blacklist',
          'year':2013,
          'genres':['Drama','Crime'],
          'avg_rating': 2.9,
          'reviews':the_blacklist_reviews,
-         'photo':os.path.join(IMAGES_DIR,'tb.jpg')},
+         'photo':os.path.join(IMAGES_DIR,'tb.jpg'),
+         'reviewed':True},
         {'title':"Grey's Anatomy",
          'year':2005,
          'genres':['Drama'],
          'avg_rating': 3.6,
-         'photo':os.path.join(IMAGES_DIR,'ga.jpg')},
+         'photo':os.path.join(IMAGES_DIR,'ga.jpg'),
+         'reviewed':True},
         {'title': "Community",
          'year':2009,
          'genres':['Comedy'],
          'avg_rating':3.5,
          'reviews':community_reviews,
-         'photo':os.path.join(IMAGES_DIR,'c.jpg')},
+         'photo':os.path.join(IMAGES_DIR,'c.jpg'),
+         'reviewed':True},
         {'title': "Game of Thrones",
          'year':2011,
          'genres':['Drama','Fantasy','Adventure'],
          'avg_rating':1.8,
          'reviews':game_of_thrones_reviews,
-         'photo':os.path.join(IMAGES_DIR,'got.jpg')},
+         'photo':os.path.join(IMAGES_DIR,'got.jpg'),
+         'reviewed':True},
          {'title': "The Mandalorian",
          'year':2019,
          'genres':['Action','Sci-Fi'],
          'avg_rating':4.1,
-         'photo':os.path.join(IMAGES_DIR,'tm.jpg')},
+         'photo':os.path.join(IMAGES_DIR,'tm.jpg'),
+         'reviewed':True},
          {'title': "Buffy The Vampire Slayer",
          'year':1997,
          'genres':['Action','Fantasy','Drama'],
          'avg_rating':4.6,
-         'photo':os.path.join(IMAGES_DIR,'btvs.jpg')}
+         'photo':os.path.join(IMAGES_DIR,'btvs.jpg'),
+         'reviewed':True}
     ]
     
     for user in users:
         add_user(user['username'],user['password'])
 
     for show in shows:
-        s = add_show(show['title'],show['year'],show['avg_rating'],show['photo'])
+        s = add_show(show['title'],show['year'],show['avg_rating'],show['photo'],show['reviewed'])
         for genre in show['genres']:
             g = add_genre(genre)
             add_belonging(s,g)
@@ -113,8 +121,8 @@ def add_belonging(show,genre):
     b.save()
     return b
 
-def add_show(title, year, avg_rating, photo):
-    s = Show.objects.create(year=year,avg_rating = avg_rating)
+def add_show(title, year, avg_rating, photo, reviewed):
+    s = Show.objects.create(year=year,avg_rating = avg_rating, reviewed=reviewed)
     s.title = title
     s.photo = photo
     s.save()
