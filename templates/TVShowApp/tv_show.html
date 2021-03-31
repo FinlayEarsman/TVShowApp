@@ -6,47 +6,58 @@
 {% endblock %}
 
 {% block header_block %}
+<h1><strong>{{ show.title }}</strong></h1>
 {% endblock %}
 
 
 {% block body_block %}
-<div class="show_info">
+<div id="show_data">
     {% if show %}
-    <img src="/media/{{ show.photo }}" alt="No picture available" width="300" height="420">
-    <h2>Show info:</h2>
-    <ul>
-        <li>Title: <strong>{{ show.title }}</strong></li>
-        <li>Year Released: {{show.year}}</li>
-        <li>Average Rating: {{show.avg_rating}}</li>
-        <li>
-            {% for genre in show_genres %}
-            <a href="{% url 'TVShowApp:show_genre' genre.slug %}">{{ genre.name }}</a>
+    <div id="show_img">
+        <img src="/media/{{ show.photo }}" alt="No picture available" width="280" height="420">
+    </div>
+    <div id="show_info">
+        <h2>Info:</h2>
+        <ul>
+            <li>Year Released: {{show.year}}</li>
+            <li>Average Rating: {{show.avg_rating}}</li>
+            <li>
+                {% for genre in show_genres %}
+                <a href="{% url 'TVShowApp:show_genre' genre.slug %}">{{ genre.name }}</a>
+                {% endfor %}
+            </li>
+        </ul>
+        {% else %}
+        No show info available.
+        {% endif %}
+        <div id="button_wrapper">
+        <div id="new_review_button">
+            {% if user.is_authenticated %}
+            <form action="{% url 'TVShowApp:new_rating' show.id %}">
+                <input class="btn btn-secondary" type="submit" value="Review This Show"/>
+            </form>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+    <div id="show_reviews">
+        <h3>Reviews:</h3>
+        {% if reviews %}
+        <div class="card-group">
+            {% for review in reviews %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'TVShowApp:user_profile' review.user.get_username %}">
+                        {{ review.user }}</a></h5>
+                    <h6 class="card-subtitle mb-2">{{ review.rating }}/10</h6>
+                    <p class="card-text">{{ review.comment }}</p>
+                </div>
+            </div>
             {% endfor %}
-        </li>
-    </ul>
-    {% else %}
-    </br>
-    No show info available.
-    </br>
-    {% endif %}
-</div>
-<div>
-    <h3>Show Reviews:</h3>
-    {% if reviews %}
-    <ul>
-        {% for review in reviews %}
-        <li><a href="{% url 'TVShowApp:user_profile' review.user.get_username %}">{{ review.user }}</a> : {{ review.comment }}</li>
-        {% endfor %}
-    </ul>
-    {% else %}
+        </div>
+        {% else %}
         There are no reviews for this show yet.
-    {% endif %}
-</div>
-<div>
-    {% if user.is_authenticated %}
-    <form action="{% url 'TVShowApp:new_rating' show.id %}">
-        <input type="submit" value="Review This Show"/>
-    </form>
-    {% endif %}
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

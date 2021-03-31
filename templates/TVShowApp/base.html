@@ -54,13 +54,15 @@
 </div>
 
 <div class="main">
-    <div class="searchbar">
-        <form method="POST" action="{% url 'TVShowApp:search_results' %}">
-            {% csrf_token %}
-            <input type="search" placeholder="Enter a TV show or username" name="search_bar">
-            <button type="submit">Search</button>
-        </form>
-    </div>
+    <header>
+        <div class="searchbar">
+            <form method="POST" action="{% url 'TVShowApp:search_results' %}">
+                {% csrf_token %}
+                <input type="search" placeholder="Enter a TV show or username" name="search_bar">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </header>
     {% block header_block %}
     {% endblock %}
     {% block body_block %}

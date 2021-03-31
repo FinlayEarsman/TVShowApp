@@ -18,7 +18,7 @@ Homepage
         <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available">
         <div class="card-body">
             <h5 class="card-title">{{ show.title }}</h5>
-            <p class="card-text">Show's average rating: {{ show.avg_rating }}</p>
+            <p class="card-text">Average rating: {{ show.avg_rating }}</p>
             <a href="{% url 'TVShowApp:tv_show' show.id %}" class="btn btn-outline-secondary">Show's page</a>
         </div>
     </div>

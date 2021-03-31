@@ -11,35 +11,33 @@ Review {{ show.title }}
 
 
 {% block body_block %}
-
-<div class="review-title d-flex justify-content-center">
-    <h3>Give a review for <strong>{{show.title}}</strong></h3>
-</div>
-<div class="row">
-    <div class="col-sm d-flex justify-content-center">
-        <img src="/media/{{show.photo}}" width="280" height="400">
+<div id="review_wrapper">
+    <div class="review_form">
+        <h3>Review:</h3>
+        <h3><strong>{{show.title}}</strong></h3>
+        <img src="/media/{{show.photo}}" alt="No picture available" width="300" height="420">
     </div>
-</div>
-<form method="post" class="review-form" action="{% url 'TVShowApp:new_rating' show.id %}">
-    {% csrf_token %}
-
-        {% for field in form.visible_fields %}
-        <div class="row w-25 align-items-center">
+    <div class="review_form">
+        <form method="post" action="{% url 'TVShowApp:new_rating' show.id %}">
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+            <div class="review_form_input">
             {% if field.field.widget.input_type == 'range' %}
-            <label for="{{ field.id_for_label }}" class="form-label">Rating:
+            <label for="{{ field.id_for_label }}">Rating:
                 <output id="rating_out" name="rating_out">1</output>
             </label>
-            <input type="range" id="{{ field.id_for_label }}" name="{{ field.html_name }}" class="form-range align-items-center"
-                   min="1"
+            <input type="range" id="{{ field.id_for_label }}" name="{{ field.html_name }}" class="form-range" min="1"
                    max="10" value="0" oninput="rating_out.value = this.value">
             {% else %}
             <label>{{field.label}}</label>
             {{ field }}
             {% endif %}
-        </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-primary mb-3" name="submit">Submit</button>
-
-</form>
-
+            </div>
+            {% endfor %}
+            <div class="review_form_input">
+                <button type="submit" class="btn btn-primary mb-3" name="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

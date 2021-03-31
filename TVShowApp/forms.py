@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import NumberInput, Textarea
+from django.forms import Textarea
 from TVShowApp.models import Genre, Review
 from django.contrib.auth.models import User
 
@@ -32,7 +32,7 @@ class ShowForm(forms.ModelForm):
 
 
 class ReviewForm(forms.ModelForm):
-    comment = forms.CharField(widget=Textarea(attrs={'rows': '2', 'cols': '30'}), label="Comment:")
+    comment = forms.CharField(widget=Textarea(attrs={'rows': '2', 'cols': '30'}), label="Comment:", required=False)
     rating = forms.IntegerField(widget=forms.NumberInput(attrs={'type': 'range', 'step': 1, 'max': 10, 'min': 1}))
 
     class Meta:
