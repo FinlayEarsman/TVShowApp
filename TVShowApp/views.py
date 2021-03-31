@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 def index(request):
     context_dict = {}
     genre_list = Genre.objects.all()
-    show_list = Show.objects.order_by('-avg_rating')[:5]
+    show_list = Show.objects.filter(reviewed=True).order_by('-avg_rating')[:5]
     context_dict['shows'] = show_list
     context_dict['genres'] = genre_list
     return render(request, 'TVShowApp/index.html', context=context_dict)
