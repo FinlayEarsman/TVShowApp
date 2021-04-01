@@ -21,6 +21,7 @@
         <ul>
             <li>Year Released: {{show.year}}</li>
             <li>Average Rating: {{show.avg_rating}}</li>
+            <li id="like_count">Likes: {{ show.likes }}</li>
             <li>
                 {% for genre in show_genres %}
                 <a href="{% url 'TVShowApp:show_genre' genre.slug %}">{{ genre.name }}</a>
@@ -31,6 +32,17 @@
         No show info available.
         {% endif %}
         <div id="button_wrapper">
+        <div class="like_button">
+            {% if user.is_authenticated %}
+                <button id="like_btn"
+                        data-showid="{{ show.id }}"
+                        class="btn btn-secondary btn-sm"
+                        type="button">
+                    <span data-feather="thumbs-up"></span>
+                    Like Show
+                </button>
+            {% endif %}
+        </div>
         <div id="new_review_button">
             {% if user.is_authenticated %}
             <form action="{% url 'TVShowApp:new_rating' show.id %}">

@@ -41,6 +41,11 @@
     bottom: 0;
 }
 
+.like_button {
+    position:absolute;
+    bottom:60;
+}
+
 #show_reviews {
     max-width: 60%;
     margin-left: 10px;

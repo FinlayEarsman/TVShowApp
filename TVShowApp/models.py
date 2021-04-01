@@ -22,6 +22,7 @@ class Show(models.Model):
     photo = models.ImageField(upload_to="show_images", blank=True) #Photo/Poster of Show
     avg_rating = models.FloatField(default=0)                      #Average Rating Across All User Reviews
     reviewed = models.BooleanField(default=False)                  #Has the show been marked as correct by an admin?
+    likes = models.IntegerField(blank=False, default=0)            #How many likes does the show have
 
     def __str__(self):
         return self.title

@@ -6,6 +6,7 @@ app_name = 'TVShowApp'
 urlpatterns = [
     path('', views.index, name='index'),
     path('show/<int:show_id>/', views.tv_show, name='tv_show'),
+    path('like-show/', views.LikeShowView.as_view(), name='like_show'),
     path('genres/<slug:genre_name_slug>/', views.show_genre, name='show_genre'),
     path('genres/add/', views.add_genres, name='add_genres'),
     path('genres/delete/<int:id>/', views.delete_genres, name='delete_genres'),

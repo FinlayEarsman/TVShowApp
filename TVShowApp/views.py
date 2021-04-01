@@ -4,8 +4,10 @@ from .models import Genre, Show, Belonging, Review
 from .forms import GenreForm, UserForm, ReviewForm, ShowForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.views import View
 
 
 def index(request):
@@ -198,3 +200,17 @@ def delete_genres(request, id):
     except p.DoesNotExist:
         raise Http404("Poll does not exist")
     return HttpResponse("ok")
+
+class LikeShowView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        show_id = request.GET['show_id']
+        try:
+            show = Show.objects.get(id=int(show_id))
+        except Show.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+        show.likes = show.likes + 1
+        show.save()
+        return HttpResponse(show.likes)

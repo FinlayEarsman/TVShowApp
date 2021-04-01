@@ -86,60 +86,68 @@ def populate():
          'avg_rating': 6.5,
          'reviews':criminal_minds_reviews,
          'photo':os.path.join(IMAGES_DIR,'cm.jpg'),
-         'reviewed':True},
+         'reviewed':True,
+         'likes':10},
         {'title':'Line of Duty',
          'year':2012,
          'genres':['Drama','Crime'],
          'avg_rating': 0.0,
          'photo':os.path.join(IMAGES_DIR,'lod.jpg'),
-         'reviewed':True},
+         'reviewed':True,
+         'likes':1},
         {'title':'The Blacklist',
          'year':2013,
          'genres':['Drama','Crime'],
          'avg_rating': 5,
          'reviews':the_blacklist_reviews,
          'photo':os.path.join(IMAGES_DIR,'tb.jpg'),
-         'reviewed':True},
+         'reviewed':True,
+         'likes':16},
         {'title':"Grey's Anatomy",
          'year':2005,
          'genres':['Drama'],
          'avg_rating': 0.0,
          'photo':os.path.join(IMAGES_DIR,'ga.jpg'),
-         'reviewed':True},
+         'reviewed':True,
+         'likes':18},
         {'title': "Community",
          'year':2009,
          'genres':['Comedy'],
          'avg_rating':5.5,
          'reviews':community_reviews,
          'photo':os.path.join(IMAGES_DIR,'c.jpg'),
-         'reviewed':True},
+         'reviewed':True,
+         'likes':4},
         {'title': "Game of Thrones",
          'year':2011,
          'genres':['Drama','Fantasy','Adventure'],
          'avg_rating':6,
          'reviews':game_of_thrones_reviews,
          'photo':os.path.join(IMAGES_DIR,'got.jpg'),
-         'reviewed':True},
+         'reviewed':True,
+         'likes':24},
          {'title': "The Mandalorian",
          'year':2019,
          'genres':['Action','Sci-Fi'],
          'avg_rating':0.0,
          'photo':os.path.join(IMAGES_DIR,'tm.jpg'),
-         'reviewed':True},
+         'reviewed':True,
+         'likes':22},
          {'title': "Buffy The Vampire Slayer",
          'year':1997,
          'genres':['Action','Fantasy','Drama'],
          'avg_rating':3.3,
          'reviews':buffy_the_vampire_slayer_reviews,
          'photo':os.path.join(IMAGES_DIR,'btvs.jpg'),
-         'reviewed':True}
+         'reviewed':True,
+         'likes':11}
     ]
     
     for user in users:
         add_user(user['username'],user['password'])
 
     for show in shows:
-        s = add_show(show['title'],show['year'],show['avg_rating'],show['photo'],show['reviewed'])
+        s = add_show(show['title'],show['year'],show['avg_rating'],show['photo'],show['reviewed'],show['likes'])
         for genre in show['genres']:
             g = add_genre(genre)
             add_belonging(s,g)
@@ -152,8 +160,8 @@ def add_belonging(show,genre):
     b.save()
     return b
 
-def add_show(title, year, avg_rating, photo, reviewed):
-    s = Show.objects.create(year=year,avg_rating = avg_rating, reviewed=reviewed)
+def add_show(title, year, avg_rating, photo, reviewed, likes):
+    s = Show.objects.create(year=year,avg_rating = avg_rating, reviewed=reviewed, likes=likes)
     s.title = title
     s.photo = photo
     s.save()
