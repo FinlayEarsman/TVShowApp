@@ -52,15 +52,16 @@ def new_rating(request, show_id):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
-            review = Review(show=show, comment=form.cleaned_data['comment'], rating=form.cleaned_data['rating'], user=request.user)
+            review = Review(show=show, comment=form.cleaned_data['comment'], rating=form.cleaned_data['rating'],
+                            user=request.user)
             review.save()
 
             reviews_for_show = Review.objects.filter(show=show)
-            running_total = 0
+            total = 0
             for rev in reviews_for_show:
-                running_total += rev.rating
-            average_across_reviews = running_total / len(reviews_for_show)
-            show.avg_rating = round(average_across_reviews,1)
+                total += rev.rating
+            average_across_reviews = total / len(reviews_for_show)
+            show.avg_rating = round(average_across_reviews, 1)
             show.save()
             return redirect(reverse("TVShowApp:index"))
         else:
@@ -72,19 +73,18 @@ def new_rating(request, show_id):
 
 
 def request_show(request):
-    
     if request.method == 'POST':
         form = ShowForm(request.POST)
         if form.is_valid:
-            s = Show.objects.create(title=request.POST['show_name'],year=request.POST['year_released'],avg_rating=0,
-                                    photo=request.FILES.get('photo'),reviewed=False)
+            s = Show.objects.create(title=request.POST['show_name'], year=request.POST['year_released'], avg_rating=0,
+                                    photo=request.FILES.get('photo'), reviewed=False)
             s.save()
             return redirect(reverse("TVShowApp:index"))
         else:
             print(form.errors)
     else:
         form = ReviewForm()
-        context_dict = {'form':form}
+        context_dict = {'form': form}
         return render(request, 'TVShowApp/request_show.html', context=context_dict)
 
 
@@ -139,10 +139,10 @@ def sign_up(request):
 def search_results(request):
     if request.method == "POST":
         context_dict = {}
-        search_bar = request.POST['search_bar']
-        users = User.objects.filter(username__contains=search_bar)
-        shows = Show.objects.filter(title__contains=search_bar)
-        context_dict['search_bar'] = search_bar
+        search_result = request.POST['search_bar']
+        users = User.objects.filter(username__contains=search_result)
+        shows = Show.objects.filter(title__contains=search_result)
+        context_dict['search_result'] = search_result
         context_dict['shows'] = shows
         context_dict['users'] = users
         return render(request, 'TVShowApp/search_results.html', context=context_dict)
@@ -154,7 +154,7 @@ def review_requests(request):
     context_dict = {}
     unreviewed_shows = Show.objects.filter(reviewed=False)
     context_dict['shows'] = unreviewed_shows
-    return render(request, 'TVShowApp/requests.html',context=context_dict)
+    return render(request, 'TVShowApp/requests.html', context=context_dict)
 
 
 @login_required
