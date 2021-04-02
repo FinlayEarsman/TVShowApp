@@ -40,7 +40,9 @@ def show_genre(request, genre_name_slug):
         belongings = Belonging.objects.filter(genre=genre)
         shows_in_genre = []
         for belonging in belongings:
-            shows_in_genre.append(Show.objects.get(id=belonging.show.id))
+            s=Show.objects.get(id=belonging.show.id)
+            if s.reviewed:
+                shows_in_genre.append(s)
         context_dict['genre'] = genre
         context_dict['shows'] = shows_in_genre
     except Genre.DoesNotExist:
@@ -81,12 +83,19 @@ def request_show(request):
             s = Show.objects.create(title=request.POST['show_name'], year=request.POST['year_released'], avg_rating=0,
                                     photo=request.FILES.get('photo'), reviewed=False)
             s.save()
+
+            for genre in Genre.objects.all():
+                if genre.slug in request.POST.keys():
+                    Belonging.objects.get_or_create(genre=genre,show=s)[0]
+
             return redirect(reverse("TVShowApp:index"))
         else:
             print(form.errors)
     else:
         form = ReviewForm()
-        context_dict = {'form': form}
+        genres = Genre.objects.all()
+        context_dict = {'form': form,
+                        'genres':genres}
         return render(request, 'TVShowApp/request_show.html', context=context_dict)
 
 
@@ -143,7 +152,7 @@ def search_results(request):
         context_dict = {}
         search_result = request.POST['search_bar']
         users = User.objects.filter(username__contains=search_result)
-        shows = Show.objects.filter(title__contains=search_result)
+        shows = Show.objects.filter(title__contains=search_result).filter(reviewed=True)
         context_dict['search_result'] = search_result
         context_dict['shows'] = shows
         context_dict['users'] = users
@@ -214,3 +223,30 @@ class LikeShowView(View):
         show.likes = show.likes + 1
         show.save()
         return HttpResponse(show.likes)
+
+class ApproveShowRequestView(View):
+    @method_decorator(login_required)
+    def get(self,request):
+        show_id = request.GET['show_id']
+        try:
+            show = Show.objects.get(id=int(show_id))
+        except Show.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+        show.reviewed = True
+        show.save()
+        return HttpResponse(1)
+
+class DenyShowRequestView(View):
+    @method_decorator(login_required)
+    def get(self,request):
+        show_id = request.GET['show_id']
+        try:
+            show = Show.objects.get(id=int(show_id))
+        except Show.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+        show.delete()
+        return HttpResponse(1)

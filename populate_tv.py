@@ -143,6 +143,11 @@ def populate():
          'likes':11}
     ]
     
+    genres = ['Sitcom','Teen','Soap','Reality TV']
+
+    for genre in genres:
+        add_genre(genre)
+
     for user in users:
         add_user(user['username'],user['password'])
 

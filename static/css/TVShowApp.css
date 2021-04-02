@@ -223,3 +223,8 @@ a[data-bs-toggle="collapse"] {
     transform: translateY(50%);
     color: #818181;
 }
+
+div.genre-checkbox {
+    position:relative;
+    left:25;
+}
