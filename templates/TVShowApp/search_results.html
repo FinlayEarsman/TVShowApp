@@ -13,43 +13,45 @@ Search Results
 
 
 {% block body_block %}
+
 {% if search_result %}
 
-
-<div id="show_results">
-    {% if shows %}
-    <div class="card-group">
-        {% for show in shows %}
-        <div class="card">
-            <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available" width="50"
-                 height="450">
-            <div class="card-body">
-                <h5 class="card-title">{{ show.title }}</h5>
-                <p class="card-text">Average rating: {{ show.avg_rating }}</p>
-                <a href="{% url 'TVShowApp:tv_show' show.id %}" class="btn btn-outline-secondary">Show's
-                    page</a>
+<div id="search_results">
+    <div id="show_results">
+        {% if shows %}
+        <h5>Shows:</h5>
+        <div class="card-group">
+            {% for show in shows %}
+            <div class="card">
+                <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available" width="50"
+                     height="450">
+                <div class="card-body">
+                    <h5 class="card-title">{{ show.title }}</h5>
+                    <p class="card-text">Average rating: {{ show.avg_rating }}</p>
+                    <a href="{% url 'TVShowApp:tv_show' show.id %}" class="btn btn-outline-secondary">Show's
+                        page</a>
+                </div>
             </div>
+            {% endfor %}
+            {% else %}
+            <h5>No shows were found.</h5>
+            {% endif %}
         </div>
-        {% endfor %}
+
+        <div id="user_results">
+            {% if users %}
+            <h5>Users:</h5>
+            <ul>
+                {% for user in users %}
+                <li><a href="{% url 'TVShowApp:user_profile' user.username %}"><h6>{{ user.username }}</h6></a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <h5>No users were found.</h5>
+            {% endif %}
+        </div>
     </div>
     {% else %}
-    <h5>No shows were found.</h5>
+    <h4>You did not search for anything.</h4>
     {% endif %}
-</div>
-
-<div id="user_results">
-    {% if users %}
-    <ul>
-        {% for user in users %}
-        <li><a href="{% url 'TVShowApp:user_profile' user.username %}"><h6>{{ user.username }}</h6></a></li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <h5>No users were found.</h5>
-    {% endif %}
-</div>
-
-{% else %}
-<h4>You did not search for anything.</h4>
-{% endif %}
-{% endblock %}
+    {% endblock %}

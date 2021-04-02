@@ -1,27 +1,32 @@
 {% extends 'TVShowApp/base.html' %}
 {% load static %}
 {% block title_block %}
-	Profile Page
+Profile Page
 {% endblock %}
 
 {% block header_block %}
+<h2>{{ usr_prof.get_username }}'s Profile </h2>
 {% endblock %}
 
 
 {% block body_block %}
-<h1>{{ usr_prof.get_username }}'s Profile </h1></br>
-
-<b>{{ usr_prof.get_username }}'s Ratings </b></br>
-{% if reviews %}
-<ul>
-
-	{% for review in reviews %}
-		<li><a href= "{% url 'TVShowApp:tv_show' review.show.id %}"> {{ review.show }}</a> : {{ review.comment }} </br> Rating: {{ review.rating }}</li>
-	{% endfor %}
-</ul>
-{% else %}
-	This user has not reviewed any TV Shows yet.</br>
-{% endif %}
-
-
+<div id="user_profile">
+    <strong><h3>Reviews:</h3></strong>
+    {% if reviews %}
+    <div class="card-group">
+        {% for review in reviews %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'TVShowApp:tv_show' review.show.id %}">
+                    {{ review.show }}</a></h5>
+                <h6 class="card-subtitle mb-2">{{ review.rating }}/10</h6>
+                <p class="card-text">{{ review.comment }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>This user has not reviewed any TV Shows yet.</p>
+    {% endif %}
+</div>
 {% endblock %}
