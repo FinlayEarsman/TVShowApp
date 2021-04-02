@@ -1,16 +1,28 @@
+#search_results {
+    width: 80%;
+}
+
+#show_results {
+    padding: 5px;
+    margin-right: 10px;
+}
+
+#user_results {
+    padding: 5px;
+    width: 50%;
+}
 
 #review_wrapper {
     margin: 0 auto;
-    max-width: 50%;
-    min-width: fit-content;
+    max-width: 35%;
     background-color: #858585;
-    padding: 10px;
 
 }
 
 .review_form {
     max-width: 50%;
     margin: 0px auto;
+    overflow-x: hidden;
 }
 
 .review_form_input {
