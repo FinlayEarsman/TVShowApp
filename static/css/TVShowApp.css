@@ -79,6 +79,16 @@
     color: #1A1A1D;
 }
 
+#show_reviews .card a:hover {
+    color: #818181;
+    background-color: transparent;
+}
+
+#user_profile .card a:hover {
+    color: #818181;
+    background-color: transparent;
+}
+
 a:link {
     color: #f3f3f3;
     background-color: transparent;
