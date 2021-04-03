@@ -14,7 +14,7 @@ TV Show Requests
 <div class="card-wrapper">
     <div class="card-group">
         {% for show in shows %}
-        <div class="card">
+        <div class="card" id="{{ show.id }}">
             <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available" width="200"
                  height="450">
             <div class="card-body">
