@@ -14,10 +14,10 @@
 }
 
 #review_wrapper {
+    padding: 10px;
     margin: 0 auto;
     max-width: 35%;
     background-color: #858585;
-
 }
 
 .review_form {
