@@ -11,10 +11,11 @@ Homepage
 {% block body_block %}
 <h2>Top 5 rated TV shows</h2>
 {% if shows %}
+<div id="index">
 <div class="card-wrapper">
 <div class="card-group">
     {% for show in shows %}
-    <div class="card h-100">
+    <div class="card">
         <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available" width="200" height="450">
         <div class="card-body">
             <h5 class="card-title">{{ show.title }}</h5>
@@ -25,6 +26,7 @@ Homepage
     {% endfor %}
 </div>
 </div>
+    </div>
 {% else %}
 </br>
 Information not available.

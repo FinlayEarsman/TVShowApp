@@ -1,34 +1,33 @@
 {% extends 'TVShowApp/base.html' %}
 {% load static %}
 {% block title_block %}
-	Request Show
+Request Show
 {% endblock %}
 
 {% block header_block %}
-Request a Show
+<h2>Request a New Show</h2>
 {% endblock %}
 
 
 {% block body_block %}
+<div id="show_request">
 <form id="show_form" method="post" action="{% url 'TVShowApp:request_show' %}" enctype="multipart/form-data">
-		{% csrf_token %}
-		Name of show: <input type="text" name="show_name" value="" size="25"  required/>
-		<br />
-		Year released: <input type="text" name="year_released" value="" size="25" required/>
-		
-		<div>
-			What Genres is This Show in?
-			{% for genre in genres %}
-				<div class="genre-checkbox">
-					<label for="{{ genre.slug }}">{{ genre.name }}</label>
-					<input type="checkbox" name="{{ genre.slug }}" />
-				</div>
-			{% endfor %}
-		</div>
-
-		Photo: <input type="file" name="photo" accept="image/png, image/jpeg" required/>
-		<br />
-		<input type="submit" value="Submit Request" />
-	</form>
-
+    {% csrf_token %}
+    Name: <input type="text" name="show_name" value="" size="25" required/>
+    <br/>
+    Year released: <input type="text" name="year_released" value="" size="25" required/>
+    <div id="genre_list">
+        Show's Genres:
+        {% for genre in genres %}
+        <div class="genre-checkbox">
+            <label for="{{ genre.slug }}">{{ genre.name }}</label>
+            <input type="checkbox" name="{{ genre.slug }}"/>
+        </div>
+        {% endfor %}
+    </div>
+    Photo: <input type="file" name="photo" accept="image/png, image/jpeg" required/>
+    <br/>
+    <input type="submit" value="Submit Request"/>
+</form>
+</div>
 {% endblock %}

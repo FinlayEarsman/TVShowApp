@@ -31,9 +31,9 @@
         {% else %}
         No show info available.
         {% endif %}
+        {% if user.is_authenticated %}
         <div id="button_wrapper">
-        <div class="like_button">
-            {% if user.is_authenticated %}
+            <div id="like_button">
                 <button id="like_btn"
                         data-showid="{{ show.id }}"
                         class="btn btn-secondary btn-sm"
@@ -41,16 +41,14 @@
                     <span data-feather="thumbs-up"></span>
                     Like Show
                 </button>
-            {% endif %}
+            </div>
+            <div id="new_review_button">
+                <form action="{% url 'TVShowApp:new_rating' show.id %}">
+                    <input class="btn btn-secondary" type="submit" value="Review This Show"/>
+                </form>
+            </div>
         </div>
-        <div id="new_review_button">
-            {% if user.is_authenticated %}
-            <form action="{% url 'TVShowApp:new_rating' show.id %}">
-                <input class="btn btn-secondary" type="submit" value="Review This Show"/>
-            </form>
-            {% endif %}
-        </div>
-        </div>
+        {% endif %}
     </div>
     <div id="show_reviews">
         <h3>Reviews:</h3>

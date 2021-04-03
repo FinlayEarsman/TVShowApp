@@ -40,7 +40,7 @@ def show_genre(request, genre_name_slug):
         belongings = Belonging.objects.filter(genre=genre)
         shows_in_genre = []
         for belonging in belongings:
-            s=Show.objects.get(id=belonging.show.id)
+            s = Show.objects.get(id=belonging.show.id)
             if s.reviewed:
                 shows_in_genre.append(s)
         context_dict['genre'] = genre
@@ -86,7 +86,7 @@ def request_show(request):
 
             for genre in Genre.objects.all():
                 if genre.slug in request.POST.keys():
-                    Belonging.objects.get_or_create(genre=genre,show=s)[0]
+                    Belonging.objects.get_or_create(genre=genre, show=s)[0]
 
             return redirect(reverse("TVShowApp:index"))
         else:
@@ -95,7 +95,7 @@ def request_show(request):
         form = ReviewForm()
         genres = Genre.objects.all()
         context_dict = {'form': form,
-                        'genres':genres}
+                        'genres': genres}
         return render(request, 'TVShowApp/request_show.html', context=context_dict)
 
 
@@ -163,8 +163,16 @@ def search_results(request):
 
 def review_requests(request):
     context_dict = {}
+    show_genres = {}
     unreviewed_shows = Show.objects.filter(reviewed=False)
+    for show in unreviewed_shows:
+        belongings = Belonging.objects.filter(show=show)
+        genres = []
+        for belonging in belongings:
+            genres.append(Genre.objects.get(name=belonging.genre))
+        show_genres[show] = genres
     context_dict['shows'] = unreviewed_shows
+    context_dict['show_genres'] = show_genres
     return render(request, 'TVShowApp/requests.html', context=context_dict)
 
 
@@ -173,8 +181,6 @@ def user_logout(request):
     logout(request)
     return redirect(reverse('TVShowApp:index'))
 
-
-# all operations for genres
 
 @login_required
 def add_genres(request):
@@ -210,6 +216,7 @@ def delete_genres(request, id):
         raise Http404("Poll does not exist")
     return HttpResponse("ok")
 
+
 class LikeShowView(View):
     @method_decorator(login_required)
     def get(self, request):
@@ -224,9 +231,10 @@ class LikeShowView(View):
         show.save()
         return HttpResponse(show.likes)
 
+
 class ApproveShowRequestView(View):
     @method_decorator(login_required)
-    def get(self,request):
+    def get(self, request):
         show_id = request.GET['show_id']
         try:
             show = Show.objects.get(id=int(show_id))
@@ -238,9 +246,10 @@ class ApproveShowRequestView(View):
         show.save()
         return HttpResponse(1)
 
+
 class DenyShowRequestView(View):
     @method_decorator(login_required)
-    def get(self,request):
+    def get(self, request):
         show_id = request.GET['show_id']
         try:
             show = Show.objects.get(id=int(show_id))

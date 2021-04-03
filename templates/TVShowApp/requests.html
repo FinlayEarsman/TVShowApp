@@ -1,7 +1,7 @@
 {% extends 'TVShowApp/base.html' %}
 {% load static %}
 {% block title_block %}
-	TV Show Requests
+TV Show Requests
 {% endblock %}
 
 {% block header_block %}
@@ -12,32 +12,37 @@
 
 {% if shows %}
 <div class="card-wrapper">
-<div class="card-group">
-    {% for show in shows %}
-    <div class="card h-100" id="{{ show.id }}">
-        <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available" width="200" height="450">
-        <div class="card-body">
-            <h5 class="card-title">{{ show.title }}</h5>
-            <p class="card-text">Year Released: {{ show.year }}</p>
-            <p class="card-text">Genres FIXME:</p>
-            <button id = "approve_btn"
-                    data-showid="{{ show.id }}"
-                    class = "btn btn-outline-secondary"
-                    type="button">Approve
-            </button>
-            <button id = "deny_btn"
-                    data-showid="{{ show.id }}"
-                    class = "btn btn-outline-secondary"
-                    type="button">Deny
-            </button>
+    <div class="card-group">
+        {% for show in shows %}
+        <div class="card" id="{{ show.id }}">
+            <img src="/media/{{ show.photo }}" class="card-img-top" alt="no picture available" width="200"
+                 height="450">
+            <div class="card-body">
+                <h5 class="card-title">{{ show.title }}</h5>
+                <p class="card-text">Year Released: {{ show.year }}</p>
+                <p class="card-text">{% for show, genre_list in show_genres.items %}
+                <div class="genres">
+                    {% for genre in genre_list %}
+                    <a href="{% url 'TVShowApp:show_genre' genre.slug %}">{{ genre }}</a>
+                    {% endfor %}{% endfor %}</p>
+                </div>
+                <button id="approve_btn"
+                        data-showid="{{ show.id }}"
+                        class="btn btn-outline-secondary"
+                        type="button">Approve
+                </button>
+                <button id="deny_btn"
+                        data-showid="{{ show.id }}"
+                        class="btn btn-outline-secondary"
+                        type="button">Deny
+                </button>
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 </div>
 {% else %}
 </br>
 No Shows to review!
 {% endif %}
-
 {% endblock %}
