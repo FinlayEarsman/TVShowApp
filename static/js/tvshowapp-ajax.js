@@ -10,9 +10,8 @@ $(document).ready(function() {
                 $('#like_btn').hide();
             })
     });
-});
 
-$(document).ready(function() {
+
     $(document).on("click", "#approve_btn", function() {
         var shshowIdVar;
         shshowIdVar = $(this).attr('data-showid');
@@ -22,10 +21,8 @@ $(document).ready(function() {
                   $('#'+shshowIdVar).hide();
               })
     })
-});
 
-$(document).ready(function() {
-    $(document).on("click", "#delete_btn", function() {
+    $(document).on("click", "#deny_btn", function() {
         var shshowIdVar;
         shshowIdVar = $(this).attr('data-showid');
         $.get('/TVShowApp/deny-show/',
@@ -34,5 +31,6 @@ $(document).ready(function() {
                   $('#'+shshowIdVar).hide();
               })
     })
+
 });
     
