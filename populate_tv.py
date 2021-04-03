@@ -19,7 +19,11 @@ def populate():
         {'username':'test3',
          'password':'test3password'},
         {'username':'test4',
-         'password':'test4password'}
+         'password':'test4password'},
+        {'username':'communityfan123',
+         'password':'communitypass'},
+        {'username':'buffyreviewer',
+         'password':'buffypass'}
     ]
 
     criminal_minds_reviews = [
@@ -64,7 +68,10 @@ def populate():
          'rating':3},
          {'user':'test4',
          'comment':'This is a comment about Community',
-         'rating':8}
+         'rating':8},
+         {'user':'communityfan123',
+         'comment':'This is a comment about Community',
+         'rating':10}
     ]
 
     buffy_the_vampire_slayer_reviews = [
@@ -76,7 +83,10 @@ def populate():
          'rating':3},
         {'user':'test2',
          'comment':'This is a comment about Buffy the Vampire Slayer',
-         'rating':5}
+         'rating':5},
+        {'user':'buffyreviewer',
+         'comment':'This is a comment about Buffy the Vampire Slayer',
+         'rating':10}
     ]
 
     shows = [
@@ -140,7 +150,35 @@ def populate():
          'reviews':buffy_the_vampire_slayer_reviews,
          'photo':os.path.join(IMAGES_DIR,'btvs.jpg'),
          'reviewed':True,
-         'likes':11}
+         'likes':11},
+         {'title': "Modern Family",
+         'year':2009,
+         'genres':['Comedy','Sitcom','Drama'],
+         'avg_rating':0.0,
+         'photo':os.path.join(IMAGES_DIR,'mf.jpg'),
+         'reviewed':False,
+         'likes':0},
+         {'title': "thE goof plaCE",
+         'year':3000,
+         'genres':['Comedy','Soap'],
+         'avg_rating':0.0,
+         'photo':os.path.join(IMAGES_DIR,'tgp.jpg'),
+         'reviewed':False,
+         'likes':0},
+         {'title': "The Bachelor",
+         'year':2002,
+         'genres':['Drama','Reality TV','Romance'],
+         'avg_rating':0.0,
+         'photo':os.path.join(IMAGES_DIR,'the_bach.jpg'),
+         'reviewed':False,
+         'likes':0},
+         {'title': "NotARealShow",
+         'year':1945,
+         'genres':['Teen','Reality TV','Comedy'],
+         'avg_rating':0.0,
+         'photo':None,
+         'reviewed':False,
+         'likes':0}
     ]
     
     genres = ['Sitcom','Teen','Soap','Reality TV']
