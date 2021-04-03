@@ -20,12 +20,15 @@ TV Show Requests
             <div class="card-body">
                 <h5 class="card-title">{{ show.title }}</h5>
                 <p class="card-text">Year Released: {{ show.year }}</p>
-                <p class="card-text">{% for show, genre_list in show_genres.items %}
+                <p class="card-text">
                 <div class="genres">
+                    {% for show, genre_list in show_genres.items %}
                     {% for genre in genre_list %}
                     <a href="{% url 'TVShowApp:show_genre' genre.slug %}">{{ genre }}</a>
-                    {% endfor %}{% endfor %}</p>
+                    {% endfor %}
+                    {% endfor %}
                 </div>
+                </p>
                 <button id="approve_btn"
                         data-showid="{{ show.id }}"
                         class="btn btn-outline-secondary"
