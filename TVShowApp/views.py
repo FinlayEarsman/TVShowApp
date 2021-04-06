@@ -21,15 +21,19 @@ def index(request):
 
 def tv_show(request, show_id):
     context_dict = {}
-    show = Show.objects.get(id=show_id)
-    reviews = Review.objects.filter(show=show.id)
-    belongings = Belonging.objects.filter(show=show)
-    genres = []
-    for belonging in belongings:
-        genres.append(Genre.objects.get(name=belonging.genre))
-    context_dict['show'] = show
-    context_dict['reviews'] = reviews
-    context_dict['show_genres'] = genres
+    try:
+        show = Show.objects.get(id=show_id)
+        reviews = Review.objects.filter(show=show.id)
+        belongings = Belonging.objects.filter(show=show)
+        genres = []
+        for belonging in belongings:
+            genres.append(Genre.objects.get(name=belonging.genre))
+        context_dict['show'] = show
+        context_dict['reviews'] = reviews
+        context_dict['show_genres'] = genres
+    except Show.DoesNotExist:
+        context_dict['show'] = ""
+        
     return render(request, 'TVShowApp/tv_show.html', context=context_dict)
 
 
@@ -213,7 +217,7 @@ def delete_genres(request, id):
         p = Genre.objects.get(id=id)
         p.delete()
     except p.DoesNotExist:
-        raise Http404("Poll does not exist")
+        raise Http404("Genre does not exist")
     return HttpResponse("ok")
 
 

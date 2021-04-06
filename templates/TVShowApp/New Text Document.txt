@@ -1,0 +1,22 @@
+{% extends 'TVShowApp/base.html' %}
+
+{% block title_block %}
+	Search Results
+{% endblock %}
+
+{% block header_block %}
+{% endblock %}
+
+
+{% block body_block %}
+{% if search_bar %}
+You searched for: {{ search_bar }}<br/>
+<ul>
+{% for result in shows %}
+	<li><a href="{% url 'TVShowApp:tv_show' result.id %}">{{ result.title }} </a> - {{result.year}}</li>
+{% endfor %}
+</ul>
+{% else %}
+You did not search for anything.
+{% endif %}
+{% endblock %}
